@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  TestViewController.swift
 //  FinalProject2
 //
 //  Created by Nursat Sakyshev on 05.06.2023.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class TestViewController: UIViewController {
     
     var roundedRectangle: UIImageView = {
         let view = UIImageView()
@@ -39,9 +39,9 @@ class ViewController: UIViewController {
         return view
     }()
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    init(helper: OnboardingHelper) {
+        super.init(nibName: nil, bundle: nil)
+        
         view.backgroundColor = .white
         
         [firstImage, containerView, secondImage].forEach {
@@ -52,10 +52,12 @@ class ViewController: UIViewController {
         containerView.addSubview(vectorImage)
         containerView.bringSubviewToFront(roundedRectangle)
         
-        firstImage.image = UIImage(named: "image1")
-        vectorImage.image = UIImage(named: "vector1")
-        secondImage.image = UIImage(named: "image2")
+        firstImage.image = helper.firstImage
+        secondImage.image = helper.secondImage
+        vectorImage.image = helper.vectorImage
         roundedRectangle.image = UIImage(named: "RoundedRect1")
+        
+        
         NSLayoutConstraint.activate([
             roundedRectangle.leftAnchor.constraint(equalTo: view.leftAnchor),
             roundedRectangle.rightAnchor.constraint(equalTo: view.rightAnchor),
@@ -70,7 +72,11 @@ class ViewController: UIViewController {
             containerView.rightAnchor.constraint(equalTo: view.rightAnchor),
             containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+        
     }
-
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }
-
