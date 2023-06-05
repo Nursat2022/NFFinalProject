@@ -14,6 +14,7 @@
 		C89810DC2A2D9E0300F22597 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89810DB2A2D9E0300F22597 /* PageViewController.swift */; };
 		C89810E22A2DEC8A00F22597 /* SneakersHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89810E12A2DEC8A00F22597 /* SneakersHelper.swift */; };
 		C89810E42A2DEDAD00F22597 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89810E32A2DEDAD00F22597 /* TestViewController.swift */; };
+		C89811082A2E52DC00F22597 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89811072A2E52DC00F22597 /* WelcomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		C89810DB2A2D9E0300F22597 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		C89810E12A2DEC8A00F22597 /* SneakersHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SneakersHelper.swift; sourceTree = "<group>"; };
 		C89810E32A2DEDAD00F22597 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		C89811072A2E52DC00F22597 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				C89810D52A2D9AE300F22597 /* Info.plist */,
 				C89810DB2A2D9E0300F22597 /* PageViewController.swift */,
 				C89810E12A2DEC8A00F22597 /* SneakersHelper.swift */,
+				C89811072A2E52DC00F22597 /* WelcomeViewController.swift */,
 			);
 			path = FinalProject2;
 			sourceTree = "<group>";
@@ -143,6 +146,7 @@
 				C89810E42A2DEDAD00F22597 /* TestViewController.swift in Sources */,
 				C89810DC2A2D9E0300F22597 /* PageViewController.swift in Sources */,
 				C89810CC2A2D9AE200F22597 /* ViewController.swift in Sources */,
+				C89811082A2E52DC00F22597 /* WelcomeViewController.swift in Sources */,
 				C89810C82A2D9AE200F22597 /* AppDelegate.swift in Sources */,
 				C89810E22A2DEC8A00F22597 /* SneakersHelper.swift in Sources */,
 			);
