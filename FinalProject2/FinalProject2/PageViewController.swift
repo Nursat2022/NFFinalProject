@@ -9,78 +9,172 @@ import UIKit
 
 class PageViewController: UIPageViewController {
     
-    var views = [OnboardingHelper]()
-    let firstImage1 = UIImage(named: "image1")
-    let secondImage1 = UIImage(named: "image2")
-    let firstImage2 = UIImage(named: "image3")
-    let secondImage2 = UIImage(named: "image4")
-    let firstImage3 = UIImage(named: "image5")
-    let secondImage3 = UIImage(named: "image6")
-    let vectorImage1 = UIImage(named: "vector1")
-    let vectorImage2 = UIImage(named: "vector2")
-    let vectorImage3 = UIImage(named: "vector3")
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .white
-        
-        let firstView = OnboardingHelper(firstImage: firstImage1!, secondImage: secondImage1!, vectorImage: vectorImage1!)
-        let secondView = OnboardingHelper(firstImage: firstImage2!, secondImage: secondImage2!, vectorImage: vectorImage2!)
-        let thirdView = OnboardingHelper(firstImage: firstImage3!, secondImage: secondImage3!, vectorImage: vectorImage3!)
-        
-        views.append(firstView)
-        views.append(secondView)
-        views.append(thirdView)
-        
-        setViewControllers([OnboradingViewControllers[0]], direction: .forward, animated: true)
-        self.dataSource = self
-        self.delegate = self
-    }
+    var pages = [UIViewController]()
+    let pageControl = UIPageControl()
+    let initialPage = 0
     
-    lazy var OnboradingViewControllers: [TestViewController] = {
-        var VC = [TestViewController]()
-        for v in views {
-            VC.append(TestViewController(helper: v))
-        }
-        return VC
+    let roundedRectangle: UIImageView = {
+        let view = UIImageView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
-//    override init(transitionStyle style: UIPageViewController.TransitionStyle, navigationOrientation: UIPageViewController.NavigationOrientation, options: [UIPageViewController.OptionsKey : Any]? = nil) {
-//        super.init(transitionStyle: .scroll, navigationOrientation: navigationOrientation)
-//        setViewControllers([OnboradingViewControllers[0]], direction: .forward, animated: true)
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
+    let label: UILabel = {
+        let label = UILabel()
+        label.text = "Fast shipping"
+        label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
+        return label
+    }()
+    
+    let subLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Get all of your desired sneakers in one place."
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 17)
+        return label
+    }()
+    
+    lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 24
+        stackView.alignment = .center
+        return stackView
+    }()
+    
+    let button: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Next", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        button.layer.cornerRadius = 27
+        button.backgroundColor = .black
+        return button
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setup()
+        style()
+        layout()
+    }
+    
+    override init(transitionStyle style: UIPageViewController.TransitionStyle, navigationOrientation: UIPageViewController.NavigationOrientation, options: [UIPageViewController.OptionsKey : Any]? = nil) {
+        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+    }
+    
+    func setup() {
+        view.backgroundColor = .white
+        self.dataSource = self
+        self.delegate = self
+        pageControl.addTarget(self, action: #selector(pageControlTapped(_:)), for: .valueChanged)
+        button.addTarget(self, action: #selector(nextButtonTapped(_:)), for: .touchUpInside)
+        
+        let page1 = TestViewController(firstImageName: "image1", secondImageName: "image2", vectorImageName: "vector1")
+        let page2 = TestViewController(firstImageName: "image3", secondImageName: "image4", vectorImageName: "vector2")
+        let page3 = TestViewController(firstImageName: "image5", secondImageName: "image6", vectorImageName: "vector3")
+        
+        pages.append(page1)
+        pages.append(page2)
+        pages.append(page3)
+        
+        setViewControllers([pages[initialPage]], direction: .forward, animated: true)
+        pageControl.addTarget(self, action: #selector(pageControlTapped(_:)), for: .valueChanged)
+        
+        roundedRectangle.image = UIImage(named: "RoundedRect1")
+    }
+    
+    func style() {
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        pageControl.currentPageIndicatorTintColor = .white
+        pageControl.pageIndicatorTintColor = .systemGray2
+        pageControl.numberOfPages = pages.count
+        pageControl.currentPage = initialPage
+    }
+    
+    func updateUI() {
+        roundedRectangle.image = UIImage(named: "RoundedRect\(pageControl.currentPage + 1)")
+    }
+    
+    func layout() {
+        stackView.addArrangedSubview(label)
+        stackView.addArrangedSubview(subLabel)
+        stackView.addArrangedSubview(button)
+        view.addSubview(roundedRectangle)
+        view.addSubview(pageControl)
+        view.addSubview(stackView)
+        NSLayoutConstraint.activate([
+            pageControl.widthAnchor.constraint(equalTo: view.widthAnchor),
+            pageControl.heightAnchor.constraint(equalToConstant: 20),
+            view.bottomAnchor.constraint(equalToSystemSpacingBelow: pageControl.bottomAnchor, multiplier: 30),
+            
+            roundedRectangle.leftAnchor.constraint(equalTo: view.leftAnchor),
+            roundedRectangle.rightAnchor.constraint(equalTo: view.rightAnchor),
+            roundedRectangle.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            roundedRectangle.heightAnchor.constraint(equalToConstant: 288),
+            
+            stackView.centerYAnchor.constraint(equalTo: roundedRectangle.centerYAnchor),
+            stackView.centerXAnchor.constraint(equalTo: roundedRectangle.centerXAnchor),
+            
+            button.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
+            button.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+            button.heightAnchor.constraint(equalToConstant: 54)
+        ])
+    }
+}
+
+extension PageViewController {
+    @objc func pageControlTapped(_ sender: UIPageControl) {
+        setViewControllers([pages[sender.currentPage]], direction: .forward, animated: true, completion: nil)
+        updateUI()
+    }
+    
+    @objc func nextButtonTapped(_ sender: UIButton) {
+        pageControl.currentPage += 1
+        goToNextPage()
+        updateUI()
+    }
+
+    func goToNextPage(animated: Bool = true, completion: ((Bool) -> Void)? = nil) {
+        guard let currentPage = viewControllers?[0] else { return }
+        guard let nextPage = dataSource?.pageViewController(self, viewControllerAfter: currentPage) else { return }
+        
+        setViewControllers([nextPage], direction: .forward, animated: animated, completion: completion)
+    }
 }
 
 extension PageViewController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let viewController = viewController as? TestViewController else { return nil }
-        if let index = OnboradingViewControllers.firstIndex(of: viewController) {
-            if index > 0 {
-                return OnboradingViewControllers[index - 1]
-            }
+        guard let currentIndex = pages.firstIndex(of: viewController) else { return nil }
+        if currentIndex == 0 {
+            return pages.last
+        } else {
+            return pages[currentIndex - 1]
         }
-        return nil
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let viewController = viewController as? TestViewController else { return nil }
-        if let index = OnboradingViewControllers.firstIndex(of: viewController) {
-            if index < OnboradingViewControllers.count - 1 {
-                return OnboradingViewControllers[index + 1]
-            }
+        guard let currentIndex = pages.firstIndex(of: viewController) else { return nil }
+        if currentIndex < pages.count - 1 {
+            return pages[currentIndex + 1]
+        } else {
+            return pages.first
         }
-        return nil
     }
     
-    func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        return OnboradingViewControllers.count
-    }
-    
-    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        return 0
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        guard let viewControllers = pageViewController.viewControllers else { return }
+        guard let currentIndex = pages.firstIndex(of: viewControllers[0]) else { return }
+        pageControl.currentPage = currentIndex
+        updateUI()
     }
 }
