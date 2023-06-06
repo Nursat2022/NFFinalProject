@@ -75,6 +75,8 @@ class WelcomeViewController: UIViewController {
         firstImage.image = UIImage(named: "image7")
         secondImage.image = UIImage(named: "image8")
         
+        SignUpButton.addTarget(self, action: #selector(signUp(_:)), for: .touchUpInside)
+        
         stackView.addArrangedSubview(label)
         stackView.addArrangedSubview(SignUpButton)
         stackView.addArrangedSubview(SignInButton)
@@ -106,5 +108,12 @@ class WelcomeViewController: UIViewController {
             SignInButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 36),
             SignInButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -36),
         ])
+    }
+}
+
+extension WelcomeViewController {
+    @objc func signUp(_ sender: UIButton) {
+        let registrationViewController = RegistrationViewController()
+        self.navigationController?.pushViewController(registrationViewController, animated: true)
     }
 }

@@ -16,17 +16,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow()
         window?.makeKeyAndVisible()
+        UINavigationBar.appearance().tintColor = .black
+
         let isOnboardingSeen = UserDefaults.standard.bool(forKey: "isOnboardingSeen")
         //        window?.rootViewController = ViewController()
         //        window?.rootViewController = UINavigationController(rootViewController: PageViewController())
-        //        window?.rootViewController = WelcomeViewController()
+//                window?.rootViewController = UINavigationController(rootViewController: WelcomeViewController())
         if isOnboardingSeen {
-            window?.rootViewController = WelcomeViewController()
+            window?.rootViewController = UINavigationController(rootViewController: WelcomeViewController())
         }
         else {
             window?.rootViewController = UINavigationController(rootViewController: PageViewController())
         }
-        
+//        window?.rootViewController = RegistrationViewController()
         
         return true
     }
