@@ -70,6 +70,7 @@ class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        self.navigationItem.hidesBackButton = true
         vectorImage.image = UIImage(named: "vector4")
         firstImage.image = UIImage(named: "image7")
         secondImage.image = UIImage(named: "image8")

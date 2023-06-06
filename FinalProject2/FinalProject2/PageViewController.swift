@@ -139,9 +139,17 @@ extension PageViewController {
     }
     
     @objc func nextButtonTapped(_ sender: UIButton) {
-        pageControl.currentPage += 1
-        goToNextPage()
-        updateUI()
+        print(pageControl.currentPage)
+        if pageControl.currentPage == 2 {
+            UserDefaults.standard.set(true, forKey: "isOnboardingSeen")
+            let welcomeViewController = WelcomeViewController()
+            self.navigationController?.pushViewController(welcomeViewController, animated: true)
+        }
+        else {
+            pageControl.currentPage += 1
+            goToNextPage()
+            updateUI()
+        }
     }
 
     func goToNextPage(animated: Bool = true, completion: ((Bool) -> Void)? = nil) {
