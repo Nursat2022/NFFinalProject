@@ -1,5 +1,5 @@
 //
-//  CatalogViewController.swift
+//  CartViewController.swift
 //  FinalProject2
 //
 //  Created by Nursat Sakyshev on 06.06.2023.
@@ -7,24 +7,14 @@
 
 import UIKit
 
-class CatalogViewController: UIViewController, UIScrollViewDelegate {
+class CartViewController: UIViewController {
+
     let sneakers = [Sneakers(imageName: "sneakers1", name: "Dolce & Gabbana", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers2", name: "Off-White", description: "Кроссовки Off-Court 3.0", price: 551), Sneakers(imageName: "sneakers3", name: "Jordan", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers4", name: "Jordan", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers1", name: "Dolce & Gabbana", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers2", name: "Off-White", description: "Кроссовки Off-Court 3.0", price: 1251)]
     
-    let scrolView = UIScrollView()
-    private let contentView = UIView()
-    
-    lazy var stackViews: [UIStackView] = {
-        var stackViews = [UIStackView]()
-        for i in 0..<sneakers.count/2 {
-            stackViews.append(UIStackView())
-        }
-        stackViews.forEach {
-            $0.axis = .horizontal
-            $0.spacing = 10
-            $0.alignment = .center
-        }
-        return stackViews
-    }()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setup()
+    }
     
     lazy var VStackView: UIStackView = {
         let stackView = UIStackView()
@@ -34,68 +24,27 @@ class CatalogViewController: UIViewController, UIScrollViewDelegate {
         return stackView
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setup()
-    }
-    
     func setup() {
-        self.title = "Hello, Sneakerhead!"
         view.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
-        scrolView.addSubview(VStackView)
-        scrolView.showsVerticalScrollIndicator = true
-        scrolView.translatesAutoresizingMaskIntoConstraints = false
-        scrolView.alwaysBounceVertical = true
-        scrolView.backgroundColor = .blue
-        
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.backgroundColor = .green
-
-        for i in 0..<sneakers.count/2 {
-            stackViews[i].addArrangedSubview(productView(sneakers: sneakers[i * 2]))
-            stackViews[i].addArrangedSubview(productView(sneakers: sneakers[i * 2 + 1]))
-        }
-        
-        stackViews.forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            VStackView.addArrangedSubview($0)
+        VStackView.addArrangedSubview(CartView(sneakers: sneakers[0]))
+        VStackView.addArrangedSubview(CartView(sneakers: sneakers[1]))
+        VStackView.backgroundColor = .red
+        for myView in VStackView.arrangedSubviews {
+            myView.translatesAutoresizingMaskIntoConstraints = false
         }
         
         VStackView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(scrolView)
-        scrolView.addSubview(contentView)
-        contentView.addSubview(VStackView)
-        
+        view.addSubview(VStackView)
         
         NSLayoutConstraint.activate([
-            scrolView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrolView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            scrolView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            scrolView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            
-            contentView.topAnchor.constraint(equalTo: scrolView.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrolView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrolView.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrolView.bottomAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrolView.widthAnchor),
-            
-            VStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 50),
-            VStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25),
-            VStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -25),
-            VStackView.heightAnchor.constraint(equalToConstant: 2000),
-            VStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            VStackView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            VStackView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            VStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 104),
         ])
     }
 }
 
-struct Sneakers {
-    var imageName: String
-    var name: String
-    var description: String
-    var price: Int
-}
-
-class productView: UIView {
+class CartView: UIView {
     let imageView: UIImageView = {
         let view = UIImageView()
         return view
@@ -177,3 +126,4 @@ class productView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
