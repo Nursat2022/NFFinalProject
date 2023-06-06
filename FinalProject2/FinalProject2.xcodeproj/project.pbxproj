@@ -18,6 +18,7 @@
 		C8D662B32A2EF3AF0087CC97 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D662B22A2EF3AF0087CC97 /* TextField.swift */; };
 		C8D662B52A2F05180087CC97 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D662B42A2F05180087CC97 /* CustomButton.swift */; };
 		C8D662B72A2F0B180087CC97 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D662B62A2F0B180087CC97 /* AuthViewController.swift */; };
+		C8D662B92A2F234D0087CC97 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D662B82A2F234D0087CC97 /* CatalogViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		C8D662B22A2EF3AF0087CC97 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		C8D662B42A2F05180087CC97 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		C8D662B62A2F0B180087CC97 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		C8D662B82A2F234D0087CC97 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				C8D662B22A2EF3AF0087CC97 /* TextField.swift */,
 				C8D662B42A2F05180087CC97 /* CustomButton.swift */,
 				C8D662B62A2F0B180087CC97 /* AuthViewController.swift */,
+				C8D662B82A2F234D0087CC97 /* CatalogViewController.swift */,
 			);
 			path = FinalProject2;
 			sourceTree = "<group>";
@@ -152,6 +155,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8D662B92A2F234D0087CC97 /* CatalogViewController.swift in Sources */,
 				C89810E42A2DEDAD00F22597 /* TestViewController.swift in Sources */,
 				C89810DC2A2D9E0300F22597 /* PageViewController.swift in Sources */,
 				C89810CC2A2D9AE200F22597 /* ViewController.swift in Sources */,
