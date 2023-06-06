@@ -17,7 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         window?.makeKeyAndVisible()
         UINavigationBar.appearance().tintColor = .black
-        window?.rootViewController = UINavigationController(rootViewController: CatalogViewController())
+//        window?.rootViewController = UINavigationController(rootViewController: CatalogViewController())
+        window?.rootViewController = UINavigationController(rootViewController: CartViewController())
         
         //        window?.rootViewController = ViewController()
         //        window?.rootViewController = UINavigationController(rootViewController: PageViewController())
