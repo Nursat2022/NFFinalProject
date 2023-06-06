@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else {
             window?.rootViewController = UINavigationController(rootViewController: PageViewController())
         }
-        
+//        window?.rootViewController = AuthViewController()
         return true
     }
     

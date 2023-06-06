@@ -17,6 +17,7 @@
 		C8D662B12A2EE2C50087CC97 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D662B02A2EE2C50087CC97 /* RegistrationViewController.swift */; };
 		C8D662B32A2EF3AF0087CC97 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D662B22A2EF3AF0087CC97 /* TextField.swift */; };
 		C8D662B52A2F05180087CC97 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D662B42A2F05180087CC97 /* CustomButton.swift */; };
+		C8D662B72A2F0B180087CC97 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D662B62A2F0B180087CC97 /* AuthViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		C8D662B02A2EE2C50087CC97 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		C8D662B22A2EF3AF0087CC97 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		C8D662B42A2F05180087CC97 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		C8D662B62A2F0B180087CC97 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				C8D662B02A2EE2C50087CC97 /* RegistrationViewController.swift */,
 				C8D662B22A2EF3AF0087CC97 /* TextField.swift */,
 				C8D662B42A2F05180087CC97 /* CustomButton.swift */,
+				C8D662B62A2F0B180087CC97 /* AuthViewController.swift */,
 			);
 			path = FinalProject2;
 			sourceTree = "<group>";
@@ -156,6 +159,7 @@
 				C8D662B52A2F05180087CC97 /* CustomButton.swift in Sources */,
 				C89811082A2E52DC00F22597 /* WelcomeViewController.swift in Sources */,
 				C8D662B12A2EE2C50087CC97 /* RegistrationViewController.swift in Sources */,
+				C8D662B72A2F0B180087CC97 /* AuthViewController.swift in Sources */,
 				C89810C82A2D9AE200F22597 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

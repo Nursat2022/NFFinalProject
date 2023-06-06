@@ -70,6 +70,7 @@ class WelcomeViewController: UIViewController {
         secondImage.image = UIImage(named: "image8")
         
         SignUpButton.addTarget(self, action: #selector(signUp(_:)), for: .touchUpInside)
+        SignInButton.addTarget(self, action: #selector(signIn(_:)), for: .touchUpInside)
         
         [vectorImage, label, stackView, firstImage, secondImage, SignInButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -112,5 +113,10 @@ extension WelcomeViewController {
     @objc func signUp(_ sender: UIButton) {
         let registrationViewController = RegistrationViewController()
         self.navigationController?.pushViewController(registrationViewController, animated: true)
+    }
+    
+    @objc func signIn(_ sender: UIButton) {
+        let authViewController = AuthViewController()
+        self.navigationController?.pushViewController(authViewController, animated: true)
     }
 }
