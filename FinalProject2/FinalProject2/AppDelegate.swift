@@ -17,18 +17,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         window?.makeKeyAndVisible()
         UINavigationBar.appearance().tintColor = .black
-
-        let isOnboardingSeen = UserDefaults.standard.bool(forKey: "isOnboardingSeen")
+        
         //        window?.rootViewController = ViewController()
         //        window?.rootViewController = UINavigationController(rootViewController: PageViewController())
 //                window?.rootViewController = UINavigationController(rootViewController: WelcomeViewController())
+
+        let isOnboardingSeen = UserDefaults.standard.bool(forKey: "isOnboardingSeen")
         if isOnboardingSeen {
             window?.rootViewController = UINavigationController(rootViewController: WelcomeViewController())
         }
         else {
             window?.rootViewController = UINavigationController(rootViewController: PageViewController())
         }
-//        window?.rootViewController = RegistrationViewController()
         
         return true
     }

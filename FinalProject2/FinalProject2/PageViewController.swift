@@ -88,7 +88,6 @@ class PageViewController: UIPageViewController {
         pages.append(page3)
         
         setViewControllers([pages[initialPage]], direction: .forward, animated: true)
-        pageControl.addTarget(self, action: #selector(pageControlTapped(_:)), for: .valueChanged)
         
         roundedRectangle.image = UIImage(named: "RoundedRect1")
     }

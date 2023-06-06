@@ -9,33 +9,28 @@ import UIKit
 
 class TestViewController: UIViewController {
     
-    var roundedRectangle: UIImageView = {
+    let roundedRectangle: UIImageView = {
         let view = UIImageView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     let firstImage: UIImageView = {
         let view = UIImageView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    lazy var vectorImage: UIImageView = {
+    let vectorImage: UIImageView = {
         let view = UIImageView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     let containerView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     let secondImage: UIImageView = {
         let view = UIImageView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -44,7 +39,6 @@ class TestViewController: UIViewController {
         firstImage.image = UIImage(named: firstImageName)
         secondImage.image = UIImage(named: secondImageName)
         vectorImage.image = UIImage(named: vectorImageName)
-//        roundedRectangle.image = UIImage(named: "RoundedRect1")
     }
     
     required init?(coder: NSCoder) {
@@ -59,15 +53,15 @@ class TestViewController: UIViewController {
             view.addSubview($0)
         }
         
-        containerView.addSubview(vectorImage)
-        containerView.bringSubviewToFront(roundedRectangle)
+        [vectorImage, roundedRectangle].forEach {
+            containerView.addSubview($0)
+        }
+        
+        [roundedRectangle, firstImage, vectorImage, secondImage, containerView].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         NSLayoutConstraint.activate([
-//            roundedRectangle.leftAnchor.constraint(equalTo: view.leftAnchor),
-//            roundedRectangle.rightAnchor.constraint(equalTo: view.rightAnchor),
-//            roundedRectangle.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-//            roundedRectangle.heightAnchor.constraint(equalToConstant: 288),
-            
             secondImage.rightAnchor.constraint(equalTo: view.rightAnchor),
             secondImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 90),
             
