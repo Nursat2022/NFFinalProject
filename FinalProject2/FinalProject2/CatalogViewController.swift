@@ -8,7 +8,7 @@
 import UIKit
 
 class CatalogViewController: UIViewController, UIScrollViewDelegate {
-    let sneakers = [Sneakers(imageName: "sneakers1", name: "Dolce & Gabbana", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers2", name: "Off-White", description: "Кроссовки Off-Court 3.0", price: 551), Sneakers(imageName: "sneakers3", name: "Jordan", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers4", name: "Jordan", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers1", name: "Dolce & Gabbana", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers2", name: "Off-White", description: "Кроссовки Off-Court 3.0", price: 1251)]
+    let sneakers = [Sneakers(imageName: "sneakers1", name: "Dolce & Gabbana", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers2", name: "Off-White", description: "Кроссовки Off-Court 3.0", price: 551), Sneakers(imageName: "sneakers3", name: "Jordan", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers4", name: "Jordan", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers5", name: "Balenciaga", description: "кроссовки Runner", price: 945), Sneakers(imageName: "sneakers6", name: "Lanvin", description: "кроссовки Curb на шнуровке", price: 700), Sneakers(imageName: "sneakers7", name: "Off-White", description: "кроссовки Odsy-1000", price: 900), Sneakers(imageName: "sneakers8", name: "Adidas YEEZY", description: "Кроссовки YEEZY 700 V3 Copper Fade", price: 255), Sneakers(imageName: "sneakers9", name: "Jordan", description: "кроссовки Jordan Max Aura 4", price: 543), Sneakers(imageName: "sneakers10", name: "Jordan", description: "кроссовки Air Jordan 1 Retro", price: 350), Sneakers(imageName: "sneakers11", name: "Off-White", description: "кроссовки с логотипом Arrows", price: 405), Sneakers(imageName: "sneakers12", name: "Maison Mihara Yasuhiro", description: "кроссовки с контрастной шнуровкой", price: 700)]
     
     let scrolView = UIScrollView()
     private let contentView = UIView()
@@ -42,14 +42,13 @@ class CatalogViewController: UIViewController, UIScrollViewDelegate {
     func setup() {
         self.title = "Hello, Sneakerhead!"
         view.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
-        scrolView.addSubview(VStackView)
+        
         scrolView.showsVerticalScrollIndicator = true
         scrolView.translatesAutoresizingMaskIntoConstraints = false
         scrolView.alwaysBounceVertical = true
-        scrolView.backgroundColor = .blue
         
         contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.backgroundColor = .green
+        contentView.backgroundColor = view.backgroundColor
 
         for i in 0..<sneakers.count/2 {
             stackViews[i].addArrangedSubview(productView(sneakers: sneakers[i * 2]))
@@ -68,22 +67,19 @@ class CatalogViewController: UIViewController, UIScrollViewDelegate {
         
         
         NSLayoutConstraint.activate([
-            scrolView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrolView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            scrolView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            scrolView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            scrolView.topAnchor.constraint(equalTo: view.topAnchor, constant: 98),
+            scrolView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
+            scrolView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+            scrolView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             contentView.topAnchor.constraint(equalTo: scrolView.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrolView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrolView.trailingAnchor),
+            contentView.rightAnchor.constraint(equalTo: scrolView.rightAnchor),
+            contentView.leftAnchor.constraint(equalTo: scrolView.leftAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrolView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: scrolView.widthAnchor),
             
-            VStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 50),
-            VStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25),
-            VStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -25),
-            VStackView.heightAnchor.constraint(equalToConstant: 2000),
-            VStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            VStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            VStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }
 }
@@ -112,6 +108,7 @@ class productView: UIView {
         let label = UILabel()
         label.textColor = UIColor(red: 142/255, green: 142/255, blue: 147/255, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 12)
+        label.numberOfLines = 0
         return label
     }()
     
