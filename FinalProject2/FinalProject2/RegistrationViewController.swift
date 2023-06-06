@@ -9,50 +9,32 @@ import UIKit
 
 class RegistrationViewController: UIViewController {
     
-    var usernameField: TextField = {
-        let textField = TextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Username"
-        textField.tintColor = UIColor.black
-        textField.layer.cornerRadius = 4
-        textField.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
-        return textField
-    }()
-    
-    let SignUpButton: UIButton = {
-        let button = UIButton()
+    let SignUpButton: CustomButton = {
+        let button = CustomButton()
         button.setTitle("Sign up", for: .normal)
-        button.tintColor = .white
-        button.backgroundColor = .black
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 27
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         return button
     }()
     
-    var passwordField: TextField = {
+    let usernameField: TextField = {
         let textField = TextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Password"
-        textField.tintColor = UIColor.black
-        textField.layer.cornerRadius = 4
-        textField.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
+        textField.placeholder = "Username"
         return textField
     }()
     
-    var repeatField: TextField = {
+    let passwordField: TextField = {
         let textField = TextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Password"
+        return textField
+    }()
+    
+    let repeatField: TextField = {
+        let textField = TextField()
         textField.placeholder = "Repeat password"
-        textField.tintColor = UIColor.black
-        textField.layer.cornerRadius = 4
-        textField.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
         return textField
     }()
     
     lazy var stackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 16
         stackView.alignment = .center
@@ -61,7 +43,15 @@ class RegistrationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setup()
+    }
+    
+    func setup() {
         view.backgroundColor = .white
+        
+        [usernameField, passwordField, repeatField, stackView].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton

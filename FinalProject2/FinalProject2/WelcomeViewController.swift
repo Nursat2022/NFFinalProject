@@ -9,9 +9,9 @@ import UIKit
 
 class WelcomeViewController: UIViewController {
     
+    
     lazy var vectorImage: UIImageView = {
         let view = UIImageView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -21,40 +21,31 @@ class WelcomeViewController: UIViewController {
         label.text = "Welcome to the biggest sneakers store app"
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 28, weight: .semibold)
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         return label
     }()
     
     lazy var stackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 24
         stackView.alignment = .center
         return stackView
     }()
     
-    let SignUpButton: UIButton = {
-        let button = UIButton()
+    let SignUpButton: CustomButton = {
+        let button = CustomButton()
         button.setTitle("Sign up", for: .normal)
-        button.tintColor = .white
-        button.backgroundColor = .black
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 27
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         return button
     }()
-    
+
     let firstImage: UIImageView = {
         let view = UIImageView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     let secondImage: UIImageView = {
         let view = UIImageView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -62,13 +53,16 @@ class WelcomeViewController: UIViewController {
         let button = UIButton()
         button.setTitle("I already have an account", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         return button
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setup()
+    }
+    
+    func setup() {
         view.backgroundColor = .white
         self.navigationItem.hidesBackButton = true
         vectorImage.image = UIImage(named: "vector4")
@@ -77,14 +71,17 @@ class WelcomeViewController: UIViewController {
         
         SignUpButton.addTarget(self, action: #selector(signUp(_:)), for: .touchUpInside)
         
+        [vectorImage, label, stackView, firstImage, secondImage, SignInButton].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
         stackView.addArrangedSubview(label)
         stackView.addArrangedSubview(SignUpButton)
         stackView.addArrangedSubview(SignInButton)
         
-        view.addSubview(vectorImage)
-        view.addSubview(firstImage)
-        view.addSubview(secondImage)
-        view.addSubview(stackView)
+        [vectorImage, firstImage, secondImage, stackView].forEach {
+            view.addSubview($0)
+        }
         
         
         NSLayoutConstraint.activate([
