@@ -19,7 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = .black
         setupOrders()
 //        window?.rootViewController = UINavigationController(rootViewController: CatalogViewController())
-        window?.rootViewController = UINavigationController(rootViewController: CartViewController())
+//        window?.rootViewController = UINavigationController(rootViewController: CartViewController())
+        window?.rootViewController = UINavigationController(rootViewController: ProfileViewController())
+//        window?.rootViewController = UINavigationController(rootViewController: SizeViewController())
+//        window?.rootViewController = UINavigationController(rootViewController: AccountViewController())
 //        window?.rootViewController = UINavigationController(rootViewController: ScrolController())
         
         //        window?.rootViewController = ViewController()

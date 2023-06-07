@@ -115,6 +115,19 @@ class CartViewController: UIViewController, CartViewDelegate {
         totalView.addSubview(totalLabel)
         totalView.addSubview(priceLabel)
         
+        if productCount == 0 {
+            emptyVStackView.isHidden = false
+            vectorImage.isHidden = false
+            
+            VStackView.isHidden = true
+            totalView.isHidden = true
+            confirmButton.isHidden = true
+        }
+        else {
+            emptyVStackView.isHidden = true
+            vectorImage.isHidden = true
+        }
+        
         for order in orders {
             let cartView = CartView(sneakers: order.key)
             cartView.delegate = self
@@ -123,8 +136,8 @@ class CartViewController: UIViewController, CartViewDelegate {
         }
         emptyVStackView.addArrangedSubview(emptyLabel)
         emptyVStackView.addArrangedSubview(emptySubLabel)
-        emptyVStackView.isHidden = true
-        vectorImage.isHidden = true
+//        emptyVStackView.isHidden = true
+//        vectorImage.isHidden = true
         
         VStackView.addArrangedSubview(totalView)
         
