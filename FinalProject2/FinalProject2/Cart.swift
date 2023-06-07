@@ -7,12 +7,13 @@
 
 import Foundation
 
-var orders: [String: Int] = [:]
+var orders: [Sneakers: Int] = [:]
 
 
 func setupOrders() {
 //    for sneaker in sneakers {
 //        orders["\(sneaker.name) \(sneaker.description)"] = 0
 //    }
-    orders["\(sneakers[1].name) \(sneakers[1].description)"] = 3
+//    orders["\(sneakers[1].name) \(sneakers[1].description)"] = 3
+    orders[sneakers[1]] = 3
 }

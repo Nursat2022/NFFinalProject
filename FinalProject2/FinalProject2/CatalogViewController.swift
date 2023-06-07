@@ -84,7 +84,7 @@ class CatalogViewController: UIViewController, UIScrollViewDelegate {
     }
 }
 
-struct Sneakers {
+struct Sneakers: Hashable {
     var imageName: String
     var name: String
     var description: String
@@ -142,7 +142,7 @@ class productView: UIView {
     }
     
     func setupAddButton() {
-        if let numberOfOrders = orders["\(nameLabel.text!) \(descriptionLabel.text!)"] {
+        if let numberOfOrders = orders[sneakers] {
             if numberOfOrders == 0 {
                 addButton.setTitle("Add to cart", for: .normal)
                 addButton.backgroundColor = .black
@@ -158,7 +158,7 @@ class productView: UIView {
     }
     
     func setUpPricelabel() {
-        if let numberOfOrders = orders["\(nameLabel.text!) \(descriptionLabel.text!)"] {
+        if let numberOfOrders = orders[sneakers] {
             if numberOfOrders != 0 {
                 priceLabel.text = "\(numberOfOrders) · \(self.sneakers.price)"
             }
@@ -214,12 +214,11 @@ class productView: UIView {
 extension productView {
     @objc func addButtonTapped(_ sender: UIButton) {
         if addButton.titleLabel?.text == "Add to cart" {
-            addButton.setTitle("Remove", for: .normal)
-            orders["\(self.sneakers.name) \(self.sneakers.description)"] = 1
+            orders[sneakers] = 1
         }
         else {
-            if let numberOfOrders = orders["\(self.sneakers.name) \(self.sneakers.description)"] {
-                orders["\(self.sneakers.name) \(self.sneakers.description)"] = numberOfOrders - 1
+            if let numberOfOrders = orders[sneakers] {
+                orders[sneakers] = numberOfOrders - 1
             }
         }
         setupAddButton()

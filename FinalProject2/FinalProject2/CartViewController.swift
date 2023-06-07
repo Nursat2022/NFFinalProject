@@ -8,15 +8,13 @@
 import UIKit
 
 class CartViewController: UIViewController {
-
-    let sneakers = [Sneakers(imageName: "sneakers1", name: "Dolce & Gabbana", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers2", name: "Off-White", description: "Кроссовки Off-Court 3.0", price: 551), Sneakers(imageName: "sneakers3", name: "Jordan", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers4", name: "Jordan", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers1", name: "Dolce & Gabbana", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers2", name: "Off-White", description: "Кроссовки Off-Court 3.0", price: 1251)]
-    
     let scrollView = UIScrollView()
     private let contentView = UIView()
     let totalView = UIView()
     
     lazy var totalLabel: UILabel = {
         let label = UILabel()
+        //MARK: CHANGE
         label.text = "4 items: Total (Including Delivery)"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -24,6 +22,7 @@ class CartViewController: UIViewController {
     
     lazy var priceLabel: UILabel = {
         let label = UILabel()
+        //MARK: CHANGE
         label.text = "$1232"
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -57,8 +56,11 @@ class CartViewController: UIViewController {
         totalView.addSubview(totalLabel)
         totalView.addSubview(priceLabel)
         
-        VStackView.addArrangedSubview(CartView(sneakers: sneakers[0]))
-        VStackView.addArrangedSubview(CartView(sneakers: sneakers[1]))
+//        VStackView.addArrangedSubview(CartView(sneakers: sneakers[0]))
+//        VStackView.addArrangedSubview(CartView(sneakers: sneakers[1]))
+        for order in orders {
+//            VStackView.addArrangedSubview(CartView(sneakers: order.))
+        }
         VStackView.addArrangedSubview(totalView)
         
         scrollView.showsVerticalScrollIndicator = true
@@ -95,8 +97,6 @@ class CartViewController: UIViewController {
             VStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             VStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
-//            totalView.topAnchor.constraint(equalTo: <#T##NSLayoutAnchor<NSLayoutYAxisAnchor>#>)
-//            totalView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             totalView.heightAnchor.constraint(equalToConstant: 50),
             totalView.leftAnchor.constraint(equalTo: VStackView.leftAnchor),
             totalView.rightAnchor.constraint(equalTo: VStackView.rightAnchor),
@@ -145,6 +145,7 @@ class CartView: UIView {
     
     let addButton: CustomButton = {
         let button = CustomButton()
+        //MARK: CHANGE
         button.setTitle("3", for: .normal)
         button.layer.cornerRadius = 17
         return button
