@@ -153,6 +153,7 @@ class productView: UIView {
             }
         } else {
             addButton.setTitle("Add to cart", for: .normal)
+            addButton.backgroundColor = .black
         }
     }
     
@@ -164,6 +165,9 @@ class productView: UIView {
             else {
                 priceLabel.text = "$\(self.sneakers.price)"
             }
+        }
+        else {
+            priceLabel.text = "$\(self.sneakers.price)"
         }
     }
     
@@ -211,11 +215,12 @@ extension productView {
     @objc func addButtonTapped(_ sender: UIButton) {
         if addButton.titleLabel?.text == "Add to cart" {
             addButton.setTitle("Remove", for: .normal)
-            orders["\(self.sneakers.name) \(self.sneakers.description)"]! = 1
+            orders["\(self.sneakers.name) \(self.sneakers.description)"] = 1
         }
         else {
-            let numberOfOrders = orders["\(self.sneakers.name) \(self.sneakers.description)"]!
-            orders["\(self.sneakers.name) \(self.sneakers.description)"] = numberOfOrders - 1
+            if let numberOfOrders = orders["\(self.sneakers.name) \(self.sneakers.description)"] {
+                orders["\(self.sneakers.name) \(self.sneakers.description)"] = numberOfOrders - 1
+            }
         }
         setupAddButton()
         setUpPricelabel()
