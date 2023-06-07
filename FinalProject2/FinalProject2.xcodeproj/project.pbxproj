@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C85F62F52A3032FD002A24FA /* Cart.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85F62F42A3032FD002A24FA /* Cart.swift */; };
+		C85F62F72A30793D002A24FA /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85F62F62A30793D002A24FA /* BottomSheetViewController.swift */; };
 		C89810C82A2D9AE200F22597 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89810C72A2D9AE200F22597 /* AppDelegate.swift */; };
 		C89810CC2A2D9AE200F22597 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89810CB2A2D9AE200F22597 /* ViewController.swift */; };
 		C89810D12A2D9AE300F22597 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C89810D02A2D9AE300F22597 /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		C85F62F42A3032FD002A24FA /* Cart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cart.swift; sourceTree = "<group>"; };
+		C85F62F62A30793D002A24FA /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		C89810C42A2D9AE200F22597 /* FinalProject2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinalProject2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C89810C72A2D9AE200F22597 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C89810CB2A2D9AE200F22597 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				C8D662BC2A2F6D0D0087CC97 /* CartViewController.swift */,
 				C8D662BE2A2F85520087CC97 /* scrolView.swift */,
 				C85F62F42A3032FD002A24FA /* Cart.swift */,
+				C85F62F62A30793D002A24FA /* BottomSheetViewController.swift */,
 			);
 			path = FinalProject2;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C8D662B92A2F234D0087CC97 /* CatalogViewController.swift in Sources */,
+				C85F62F72A30793D002A24FA /* BottomSheetViewController.swift in Sources */,
 				C89810E42A2DEDAD00F22597 /* TestViewController.swift in Sources */,
 				C89810DC2A2D9E0300F22597 /* PageViewController.swift in Sources */,
 				C85F62F52A3032FD002A24FA /* Cart.swift in Sources */,

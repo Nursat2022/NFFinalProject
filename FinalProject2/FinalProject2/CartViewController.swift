@@ -14,7 +14,35 @@ class CartViewController: UIViewController, CartViewDelegate {
         
         totalPrice += count * cartView.sneakers.price
         priceLabel.text = "$\(totalPrice)"
+        
+        if productCount == 0 {
+            updateUI()
+        }
     }
+    
+    let vectorImage: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(named: "vector5")
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    lazy var emptyLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Cart is empty"
+        label.textColor = .black
+        label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var emptySubLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Find interesting models in the Catalog."
+        label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     let scrollView = UIScrollView()
     private let contentView = UIView()
@@ -55,6 +83,7 @@ class CartViewController: UIViewController, CartViewDelegate {
         let button = CustomButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Confirm Order", for: .normal)
+        button.addTarget(self, action: #selector(confirm(_:)), for: .touchUpInside)
         return button
     }()
     
@@ -71,6 +100,15 @@ class CartViewController: UIViewController, CartViewDelegate {
         return stackView
     }()
     
+    lazy var emptyVStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 16
+        stackView.alignment = .center
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
     func setup() {
         self.title = "Cart"
         view.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
@@ -83,6 +121,11 @@ class CartViewController: UIViewController, CartViewDelegate {
             VStackView.addArrangedSubview(cartView)
             
         }
+        emptyVStackView.addArrangedSubview(emptyLabel)
+        emptyVStackView.addArrangedSubview(emptySubLabel)
+        emptyVStackView.isHidden = true
+        vectorImage.isHidden = true
+        
         VStackView.addArrangedSubview(totalView)
         
         scrollView.showsVerticalScrollIndicator = true
@@ -96,11 +139,15 @@ class CartViewController: UIViewController, CartViewDelegate {
         
         for myView in VStackView.arrangedSubviews {
             myView.translatesAutoresizingMaskIntoConstraints = false
+//            let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+//            myView.addGestureRecognizer(panGestureRecognizer)
         }
         
         VStackView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
         view.addSubview(confirmButton)
+        view.addSubview(vectorImage)
+        view.addSubview(emptyVStackView)
         scrollView.addSubview(contentView)
         contentView.addSubview(VStackView)
         
@@ -133,7 +180,44 @@ class CartViewController: UIViewController, CartViewDelegate {
             confirmButton.leftAnchor.constraint(equalTo: view.leftAnchor,constant: 16),
             confirmButton.rightAnchor.constraint(equalTo: view.rightAnchor,constant: -16),
             confirmButton.heightAnchor.constraint(equalToConstant: 54),
+            
+            vectorImage.topAnchor.constraint(equalTo: view.topAnchor),
+            vectorImage.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
+            vectorImage.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height/2 - 30),
+            
+            emptyVStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            emptyVStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
+    }
+}
+
+extension CartViewController {
+    func updateUI() {
+        VStackView.isHidden.toggle()
+        totalView.isHidden.toggle()
+        confirmButton.isHidden.toggle()
+        
+        vectorImage.isHidden.toggle()
+        emptyVStackView.isHidden.toggle()
+    }
+}
+
+extension CartViewController {
+    @objc func confirm(_ sender: UIButton) {
+        let vc = BottomSheetViewController()
+        vc.button.addAction(.init(handler: { _ in
+            vc.dismiss(animated: true)
+            self.updateUI()
+        }), for: .touchUpInside)
+        
+        let navVC = UINavigationController(rootViewController: vc)
+        
+        if let sheet = navVC.sheetPresentationController {
+            sheet.detents = [.medium()]
+        }
+        navigationController?.present(navVC, animated: true, completion: {
+            orders = [:]
+        })
     }
 }
 
