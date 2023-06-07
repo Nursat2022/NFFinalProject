@@ -7,23 +7,44 @@
 
 import UIKit
 
-class CartViewController: UIViewController {
+class CartViewController: UIViewController, CartViewDelegate {
+    func cartViewDidUpdateProductCount(_ cartView: CartView, count: Int) {
+        productCount += count
+        totalLabel.text = "\(productCount) items: Total (Including Delivery)"
+        
+        totalPrice += count * cartView.sneakers.price
+        priceLabel.text = "$\(totalPrice)"
+    }
+    
     let scrollView = UIScrollView()
     private let contentView = UIView()
     let totalView = UIView()
     
+    lazy var productCount: Int = {
+        var ordersValue = orders.values
+        var orders = ordersValue.reduce(0, +)
+        return orders
+    }()
+    
     lazy var totalLabel: UILabel = {
         let label = UILabel()
-        //MARK: CHANGE
-        label.text = "4 items: Total (Including Delivery)"
+        label.text = "\(productCount) items: Total (Including Delivery)"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    lazy var totalPrice: Int = {
+        var totalPrice = 0
+        for (key, value) in orders {
+            totalPrice += key.price * value
+        }
+        return totalPrice
     }()
     
     lazy var priceLabel: UILabel = {
         let label = UILabel()
         //MARK: CHANGE
-        label.text = "$1232"
+        label.text = "$\(totalPrice)"
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 13, weight: .bold)
@@ -56,10 +77,11 @@ class CartViewController: UIViewController {
         totalView.addSubview(totalLabel)
         totalView.addSubview(priceLabel)
         
-//        VStackView.addArrangedSubview(CartView(sneakers: sneakers[0]))
-//        VStackView.addArrangedSubview(CartView(sneakers: sneakers[1]))
         for order in orders {
-//            VStackView.addArrangedSubview(CartView(sneakers: order.))
+            let cartView = CartView(sneakers: order.key)
+            cartView.delegate = self
+            VStackView.addArrangedSubview(cartView)
+            
         }
         VStackView.addArrangedSubview(totalView)
         
@@ -116,6 +138,7 @@ class CartViewController: UIViewController {
 }
 
 class CartView: UIView {
+    weak var delegate: CartViewDelegate?
     let imageView: UIImageView = {
         let view = UIImageView()
         return view
@@ -145,11 +168,11 @@ class CartView: UIView {
     
     let addButton: CustomButton = {
         let button = CustomButton()
-        //MARK: CHANGE
-        button.setTitle("3", for: .normal)
         button.layer.cornerRadius = 17
         return button
     }()
+    
+    let sneakers: Sneakers
     
     let minusButton: UIButton = {
         let button = UIButton()
@@ -168,16 +191,26 @@ class CartView: UIView {
     }()
     
     init(sneakers: Sneakers) {
+        self.sneakers = sneakers
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         imageView.image = UIImage(named: sneakers.imageName)
         nameLabel.text = sneakers.name
         descriptionLabel.text = sneakers.description
         priceLabel.text = "$\(sneakers.price)"
         self.layer.cornerRadius = 4
+        setupAddButton()
         setup()
     }
     
+    func setupAddButton() {
+        addButton.setTitle("\(orders[sneakers]!)", for: .normal)
+    }
+    
     func setup() {
+        
+        minusButton.addTarget(self, action: #selector(minusTapped(_:)), for: .touchUpInside)
+        plusButton.addTarget(self, action: #selector(plusTapped(_:)), for: .touchUpInside)
+        
         self.backgroundColor = .white
         [imageView, nameLabel, descriptionLabel, priceLabel, addButton, minusButton, plusButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -228,3 +261,25 @@ class CartView: UIView {
     }
 }
 
+extension CartView {
+    @objc func minusTapped(_ sender: UIButton) {
+        orders[sneakers]! -= 1
+        if orders[self.sneakers]! == 0 {
+            self.removeFromSuperview()
+        }
+        else {
+            setupAddButton()
+        }
+        delegate?.cartViewDidUpdateProductCount(self, count: -1)
+    }
+    
+    @objc func plusTapped(_ sender: UIButton) {
+        orders[sneakers]! += 1
+        setupAddButton()
+        delegate?.cartViewDidUpdateProductCount(self, count: 1)
+    }
+}
+
+protocol CartViewDelegate: AnyObject {
+    func cartViewDidUpdateProductCount(_ cartView: CartView, count: Int)
+}

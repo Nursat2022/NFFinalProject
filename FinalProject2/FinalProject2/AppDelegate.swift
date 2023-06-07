@@ -18,8 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         UINavigationBar.appearance().tintColor = .black
         setupOrders()
-        window?.rootViewController = UINavigationController(rootViewController: CatalogViewController())
-//        window?.rootViewController = UINavigationController(rootViewController: CartViewController())
+//        window?.rootViewController = UINavigationController(rootViewController: CatalogViewController())
+        window?.rootViewController = UINavigationController(rootViewController: CartViewController())
 //        window?.rootViewController = UINavigationController(rootViewController: ScrolController())
         
         //        window?.rootViewController = ViewController()

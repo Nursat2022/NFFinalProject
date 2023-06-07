@@ -16,4 +16,5 @@ func setupOrders() {
 //    }
 //    orders["\(sneakers[1].name) \(sneakers[1].description)"] = 3
     orders[sneakers[1]] = 3
+    orders[sneakers[0]] = 6
 }
