@@ -7,9 +7,9 @@
 
 import UIKit
 
+let sneakers = [Sneakers(imageName: "sneakers1", name: "Dolce & Gabbana", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers2", name: "Off-White", description: "Кроссовки Off-Court 3.0", price: 551), Sneakers(imageName: "sneakers3", name: "Jordan", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers4", name: "Jordan", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers5", name: "Balenciaga", description: "кроссовки Runner", price: 945), Sneakers(imageName: "sneakers6", name: "Lanvin", description: "кроссовки Curb на шнуровке", price: 700), Sneakers(imageName: "sneakers7", name: "Off-White", description: "кроссовки Odsy-1000", price: 900), Sneakers(imageName: "sneakers8", name: "Adidas YEEZY", description: "Кроссовки YEEZY 700 V3 Copper Fade", price: 255), Sneakers(imageName: "sneakers9", name: "Jordan", description: "кроссовки Jordan Max Aura 4", price: 543), Sneakers(imageName: "sneakers10", name: "Jordan", description: "кроссовки Air Jordan 1 Retro", price: 350), Sneakers(imageName: "sneakers11", name: "Off-White", description: "кроссовки с логотипом Arrows", price: 405), Sneakers(imageName: "sneakers12", name: "Maison Mihara Yasuhiro", description: "кроссовки с контрастной шнуровкой", price: 700)]
+
 class CatalogViewController: UIViewController, UIScrollViewDelegate {
-    let sneakers = [Sneakers(imageName: "sneakers1", name: "Dolce & Gabbana", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers2", name: "Off-White", description: "Кроссовки Off-Court 3.0", price: 551), Sneakers(imageName: "sneakers3", name: "Jordan", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers4", name: "Jordan", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers5", name: "Balenciaga", description: "кроссовки Runner", price: 945), Sneakers(imageName: "sneakers6", name: "Lanvin", description: "кроссовки Curb на шнуровке", price: 700), Sneakers(imageName: "sneakers7", name: "Off-White", description: "кроссовки Odsy-1000", price: 900), Sneakers(imageName: "sneakers8", name: "Adidas YEEZY", description: "Кроссовки YEEZY 700 V3 Copper Fade", price: 255), Sneakers(imageName: "sneakers9", name: "Jordan", description: "кроссовки Jordan Max Aura 4", price: 543), Sneakers(imageName: "sneakers10", name: "Jordan", description: "кроссовки Air Jordan 1 Retro", price: 350), Sneakers(imageName: "sneakers11", name: "Off-White", description: "кроссовки с логотипом Arrows", price: 405), Sneakers(imageName: "sneakers12", name: "Maison Mihara Yasuhiro", description: "кроссовки с контрастной шнуровкой", price: 700)]
-    
     let scrolView = UIScrollView()
     private let contentView = UIView()
     
@@ -118,21 +118,53 @@ class productView: UIView {
         label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
         return label
     }()
+    
     let addButton: CustomButton = {
         let button = CustomButton()
-        button.setTitle("Add to cart", for: .normal)
         button.layer.cornerRadius = 20
         return button
     }()
     
+    var sneakers: Sneakers
+    
     init(sneakers: Sneakers) {
+        self.sneakers = sneakers
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        self.layer.cornerRadius = 4
         imageView.image = UIImage(named: sneakers.imageName)
         nameLabel.text = sneakers.name
         descriptionLabel.text = sneakers.description
         priceLabel.text = "$\(sneakers.price)"
-        self.layer.cornerRadius = 4
+        addButton.addTarget(self, action: #selector(addButtonTapped(_:)), for: .touchUpInside)
+        setUpPricelabel()
+        setupAddButton()
         setup()
+    }
+    
+    func setupAddButton() {
+        if let numberOfOrders = orders["\(nameLabel.text!) \(descriptionLabel.text!)"] {
+            if numberOfOrders == 0 {
+                addButton.setTitle("Add to cart", for: .normal)
+                addButton.backgroundColor = .black
+            }
+            else {
+                addButton.setTitle("Remove", for: .normal)
+                addButton.backgroundColor = .gray
+            }
+        } else {
+            addButton.setTitle("Add to cart", for: .normal)
+        }
+    }
+    
+    func setUpPricelabel() {
+        if let numberOfOrders = orders["\(nameLabel.text!) \(descriptionLabel.text!)"] {
+            if numberOfOrders != 0 {
+                priceLabel.text = "\(numberOfOrders) · \(self.sneakers.price)"
+            }
+            else {
+                priceLabel.text = "$\(self.sneakers.price)"
+            }
+        }
     }
     
     func setup() {
@@ -172,5 +204,20 @@ class productView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension productView {
+    @objc func addButtonTapped(_ sender: UIButton) {
+        if addButton.titleLabel?.text == "Add to cart" {
+            addButton.setTitle("Remove", for: .normal)
+            orders["\(self.sneakers.name) \(self.sneakers.description)"]! = 1
+        }
+        else {
+            let numberOfOrders = orders["\(self.sneakers.name) \(self.sneakers.description)"]!
+            orders["\(self.sneakers.name) \(self.sneakers.description)"] = numberOfOrders - 1
+        }
+        setupAddButton()
+        setUpPricelabel()
     }
 }

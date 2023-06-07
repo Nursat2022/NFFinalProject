@@ -15,6 +15,28 @@ class CartViewController: UIViewController {
     private let contentView = UIView()
     let totalView = UIView()
     
+    lazy var totalLabel: UILabel = {
+        let label = UILabel()
+        label.text = "4 items: Total (Including Delivery)"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var priceLabel: UILabel = {
+        let label = UILabel()
+        label.text = "$1232"
+        label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 13, weight: .bold)
+        return label
+    }()
+    
+    lazy var confirmButton: CustomButton = {
+        let button = CustomButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Confirm Order", for: .normal)
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +54,9 @@ class CartViewController: UIViewController {
     func setup() {
         self.title = "Cart"
         view.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
+        totalView.addSubview(totalLabel)
+        totalView.addSubview(priceLabel)
+        
         VStackView.addArrangedSubview(CartView(sneakers: sneakers[0]))
         VStackView.addArrangedSubview(CartView(sneakers: sneakers[1]))
         VStackView.addArrangedSubview(totalView)
@@ -51,6 +76,7 @@ class CartViewController: UIViewController {
         
         VStackView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
+        view.addSubview(confirmButton)
         scrollView.addSubview(contentView)
         contentView.addSubview(VStackView)
         
@@ -74,6 +100,17 @@ class CartViewController: UIViewController {
             totalView.heightAnchor.constraint(equalToConstant: 50),
             totalView.leftAnchor.constraint(equalTo: VStackView.leftAnchor),
             totalView.rightAnchor.constraint(equalTo: VStackView.rightAnchor),
+            
+            totalLabel.centerYAnchor.constraint(equalTo: totalView.centerYAnchor),
+            totalLabel.leftAnchor.constraint(equalTo: totalView.leftAnchor, constant: 16),
+            
+            priceLabel.centerYAnchor.constraint(equalTo: totalView.centerYAnchor),
+            priceLabel.rightAnchor.constraint(equalTo: totalView.rightAnchor,constant: -16),
+            
+            confirmButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
+            confirmButton.leftAnchor.constraint(equalTo: view.leftAnchor,constant: 16),
+            confirmButton.rightAnchor.constraint(equalTo: view.rightAnchor,constant: -16),
+            confirmButton.heightAnchor.constraint(equalToConstant: 54),
         ])
     }
 }
