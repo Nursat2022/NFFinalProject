@@ -8,7 +8,6 @@
 import UIKit
 
 //let orderDetail = []
-let orderDetail = [orderHistory[0]]
 
 class OrderDetailViewController: UIViewController {
     

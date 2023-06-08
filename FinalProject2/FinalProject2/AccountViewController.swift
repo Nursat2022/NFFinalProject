@@ -7,9 +7,14 @@
 
 import UIKit
 
-var data = ["username": "Nursat", "password": "hello"]
-
 class AccountViewController: UIViewController {
+    
+    let wrongPasswordError: UILabel = {
+        let label = UILabel()
+        label.text = "Wrong password"
+        label.textColor = .red
+        return label
+    }()
     
     let SaveButton: CustomButton = {
         let button = CustomButton()
@@ -51,9 +56,11 @@ class AccountViewController: UIViewController {
     func setup() {
         view.backgroundColor = .white
         
-        [usernameField, oldPassword, repeatField, stackView].forEach {
+        [usernameField, oldPassword, repeatField, stackView, wrongPasswordError].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
+        
+        wrongPasswordError.isHidden = true
         
         let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
@@ -68,6 +75,7 @@ class AccountViewController: UIViewController {
         
         view.addSubview(stackView)
         view.addSubview(SaveButton)
+        view.addSubview(wrongPasswordError)
         
         NSLayoutConstraint.activate([
             usernameField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
@@ -87,14 +95,18 @@ class AccountViewController: UIViewController {
             SaveButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             SaveButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
             SaveButton.heightAnchor.constraint(equalToConstant: 54),
-            SaveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50)
+            SaveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            
+            wrongPasswordError.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            wrongPasswordError.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
     }
 }
 
 extension AccountViewController {
     @objc func submit(_ sender: UIButton) {
-        print(usernameField.text)
-        print(oldPassword.text)
+        if oldPassword.text == "Hello" {
+            wrongPasswordError.isHidden = false
+        }
     }
 }

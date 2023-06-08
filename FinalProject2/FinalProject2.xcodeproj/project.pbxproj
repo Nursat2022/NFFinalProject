@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C85F62F52A3032FD002A24FA /* Cart.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85F62F42A3032FD002A24FA /* Cart.swift */; };
+		C85F62F52A3032FD002A24FA /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85F62F42A3032FD002A24FA /* Data.swift */; };
 		C85F62F72A30793D002A24FA /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85F62F62A30793D002A24FA /* BottomSheetViewController.swift */; };
 		C85F62F92A30994D002A24FA /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85F62F82A30994D002A24FA /* ProfileViewController.swift */; };
 		C85F62FB2A30E096002A24FA /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85F62FA2A30E096002A24FA /* AccountViewController.swift */; };
@@ -33,7 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C85F62F42A3032FD002A24FA /* Cart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cart.swift; sourceTree = "<group>"; };
+		C85F62F42A3032FD002A24FA /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		C85F62F62A30793D002A24FA /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		C85F62F82A30994D002A24FA /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		C85F62FA2A30E096002A24FA /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
@@ -104,7 +104,7 @@
 				C8D662B62A2F0B180087CC97 /* AuthViewController.swift */,
 				C8D662B82A2F234D0087CC97 /* CatalogViewController.swift */,
 				C8D662BC2A2F6D0D0087CC97 /* CartViewController.swift */,
-				C85F62F42A3032FD002A24FA /* Cart.swift */,
+				C85F62F42A3032FD002A24FA /* Data.swift */,
 				C85F62F62A30793D002A24FA /* BottomSheetViewController.swift */,
 				C85F62F82A30994D002A24FA /* ProfileViewController.swift */,
 				C85F62FA2A30E096002A24FA /* AccountViewController.swift */,
@@ -196,7 +196,7 @@
 				C85F62FB2A30E096002A24FA /* AccountViewController.swift in Sources */,
 				C89810E42A2DEDAD00F22597 /* TestViewController.swift in Sources */,
 				C89810DC2A2D9E0300F22597 /* PageViewController.swift in Sources */,
-				C85F62F52A3032FD002A24FA /* Cart.swift in Sources */,
+				C85F62F52A3032FD002A24FA /* Data.swift in Sources */,
 				C89810CC2A2D9AE200F22597 /* ViewController.swift in Sources */,
 				C8D662B32A2EF3AF0087CC97 /* TextField.swift in Sources */,
 				C8D662B52A2F05180087CC97 /* CustomButton.swift in Sources */,

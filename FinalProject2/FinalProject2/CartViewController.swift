@@ -109,7 +109,6 @@ class CartViewController: UIViewController, CartViewDelegate {
         
         totalLabel.text = "\(productCount) items: Total (Including Delivery)"
         priceLabel.text = "$\(totalPrice)"
-        print(productCount)
         if productCount == 0 {
             emptyVStackView.isHidden = false
             vectorImage.isHidden = false
@@ -268,9 +267,11 @@ extension CartViewController {
 extension CartViewController {
     @objc func confirm(_ sender: UIButton) {
         let vc = BottomSheetViewController()
-        vc.button.addAction(.init(handler: { _ in
+        vc.button.addAction(.init(handler: { [self] _ in
             vc.dismiss(animated: true)
             self.updateUI()
+            orderHistory.append(orderData(number: numberOfOrders, date: "08.06.2023", numberOfItems: productCount, totalPrice: totalPrice))
+            numberOfOrders += 1
         }), for: .touchUpInside)
         
         let navVC = UINavigationController(rootViewController: vc)

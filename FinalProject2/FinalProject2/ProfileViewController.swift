@@ -8,8 +8,6 @@
 import UIKit
 import SafariServices
 
-var shoeSize = 41.5
-
 class ProfileViewController: UIViewController {
     let tableView = UITableView()
     
@@ -23,7 +21,6 @@ class ProfileViewController: UIViewController {
         button.addTarget(self, action: #selector(confirm(_:)), for: .touchUpInside)
         return button
     }()
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -133,7 +130,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             case 0:
                 vc = AccountViewController()
             case 1:
-                vc = AccountViewController()
+                vc = HistoryViewController()
             case 2:
                 vc = SizeViewController()
             default:

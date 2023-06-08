@@ -7,8 +7,6 @@
 
 import UIKit
 
-var orderHistory = [orderData(number: 1, date: "24.12.2023", numberOfItems: 5, totalPrice: 1234), orderData(number: 2, date: "24.12.2023", numberOfItems: 3, totalPrice: 1234), orderData(number: 3, date: "24.12.2023", numberOfItems: 5, totalPrice: 1234), orderData(number: 4, date: "24.12.2023", numberOfItems: 5, totalPrice: 1234), orderData(number: 5, date: "24.12.2023", numberOfItems: 2, totalPrice: 3543)]
-
 class HistoryViewController: UIViewController {
     
     var tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), style: .grouped)
@@ -38,6 +36,10 @@ class HistoryViewController: UIViewController {
         ])
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
 }
 
 extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
@@ -135,11 +137,4 @@ class OrderCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-}
-
-struct orderData {
-    var number: Int
-    var date: String
-    var numberOfItems: Int
-    var totalPrice: Int
 }
