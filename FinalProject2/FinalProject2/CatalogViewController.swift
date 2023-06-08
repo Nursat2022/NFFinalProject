@@ -40,7 +40,7 @@ class CatalogViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func setup() {
-        self.title = "Hello, Sneakerhead!"
+        self.navigationItem.title = "Hello, Sneakerhead!"
         view.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
         
         scrolView.showsVerticalScrollIndicator = true

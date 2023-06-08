@@ -20,7 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupOrders()
 //        window?.rootViewController = UINavigationController(rootViewController: CatalogViewController())
 //        window?.rootViewController = UINavigationController(rootViewController: CartViewController())
-        window?.rootViewController = UINavigationController(rootViewController: ProfileViewController())
+//        window?.rootViewController = UINavigationController(rootViewController: ProfileViewController())
+//        window?.rootViewController = UINavigationController(rootViewController: ImagesViewController())
+//        window?.rootViewController = UINavigationController(rootViewController: HistoryViewController())
+//        window?.rootViewController = UINavigationController(rootViewController: OrderDetailViewController())
+        let tabVC = TabBarController()
+        window?.rootViewController = tabVC
 //        window?.rootViewController = UINavigationController(rootViewController: SizeViewController())
 //        window?.rootViewController = UINavigationController(rootViewController: AccountViewController())
 //        window?.rootViewController = UINavigationController(rootViewController: ScrolController())

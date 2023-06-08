@@ -27,7 +27,7 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Cart"
+        self.navigationItem.title = "Cart"
         view.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
         tableView.delegate = self
         tableView.dataSource = self
@@ -46,7 +46,7 @@ class ProfileViewController: UIViewController {
             
             button.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             button.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
-            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
+            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
             button.heightAnchor.constraint(equalToConstant: 54)
         ])
     }

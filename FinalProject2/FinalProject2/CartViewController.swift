@@ -110,7 +110,7 @@ class CartViewController: UIViewController, CartViewDelegate {
     }()
     
     func setup() {
-        self.title = "Cart"
+        self.navigationItem.title = "Cart"
         view.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
         totalView.addSubview(totalLabel)
         totalView.addSubview(priceLabel)
@@ -189,7 +189,7 @@ class CartViewController: UIViewController, CartViewDelegate {
             priceLabel.centerYAnchor.constraint(equalTo: totalView.centerYAnchor),
             priceLabel.rightAnchor.constraint(equalTo: totalView.rightAnchor,constant: -16),
             
-            confirmButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
+            confirmButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
             confirmButton.leftAnchor.constraint(equalTo: view.leftAnchor,constant: 16),
             confirmButton.rightAnchor.constraint(equalTo: view.rightAnchor,constant: -16),
             confirmButton.heightAnchor.constraint(equalToConstant: 54),

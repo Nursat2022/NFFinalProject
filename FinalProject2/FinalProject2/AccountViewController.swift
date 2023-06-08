@@ -25,13 +25,13 @@ class AccountViewController: UIViewController {
     
     let oldPassword: TextField = {
         let textField = TextField()
-        textField.text = data["password"]
+        textField.placeholder = "old password"
         return textField
     }()
     
-    let newPassword: TextField = {
+    let repeatField: TextField = {
         let textField = TextField()
-        textField.text = data["password"]
+        textField.placeholder = "new password"
         return textField
     }()
     
@@ -51,7 +51,7 @@ class AccountViewController: UIViewController {
     func setup() {
         view.backgroundColor = .white
         
-        [usernameField, oldPassword, newPassword, stackView].forEach {
+        [usernameField, oldPassword, repeatField, stackView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
@@ -64,7 +64,7 @@ class AccountViewController: UIViewController {
         
         stackView.addArrangedSubview(usernameField)
         stackView.addArrangedSubview(oldPassword)
-        stackView.addArrangedSubview(newPassword)
+        stackView.addArrangedSubview(repeatField)
         
         view.addSubview(stackView)
         view.addSubview(SaveButton)
@@ -78,9 +78,9 @@ class AccountViewController: UIViewController {
             oldPassword.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
             oldPassword.heightAnchor.constraint(equalToConstant: 48),
             
-            newPassword.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
-            newPassword.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
-            newPassword.heightAnchor.constraint(equalToConstant: 48),
+            repeatField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
+            repeatField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+            repeatField.heightAnchor.constraint(equalToConstant: 48),
             
             stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 104),
             

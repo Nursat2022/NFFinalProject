@@ -12,6 +12,11 @@
 		C85F62F92A30994D002A24FA /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85F62F82A30994D002A24FA /* ProfileViewController.swift */; };
 		C85F62FB2A30E096002A24FA /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85F62FA2A30E096002A24FA /* AccountViewController.swift */; };
 		C85F62FD2A30E5E5002A24FA /* SizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85F62FC2A30E5E5002A24FA /* SizeViewController.swift */; };
+		C85F62FF2A3103DD002A24FA /* HIstoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85F62FE2A3103DD002A24FA /* HIstoryViewController.swift */; };
+		C87EB1002A317FB70093C5E9 /* ImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87EB0FF2A317FB70093C5E9 /* ImagesViewController.swift */; };
+		C87EB1022A3189610093C5E9 /* OrderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87EB1012A3189610093C5E9 /* OrderDetailViewController.swift */; };
+		C87EB1042A31B8260093C5E9 /* Rosourses.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87EB1032A31B8260093C5E9 /* Rosourses.swift */; };
+		C87EB1062A31B8FC0093C5E9 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87EB1052A31B8FC0093C5E9 /* TabBarViewController.swift */; };
 		C89810C82A2D9AE200F22597 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89810C72A2D9AE200F22597 /* AppDelegate.swift */; };
 		C89810CC2A2D9AE200F22597 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89810CB2A2D9AE200F22597 /* ViewController.swift */; };
 		C89810D12A2D9AE300F22597 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C89810D02A2D9AE300F22597 /* Assets.xcassets */; };
@@ -33,6 +38,11 @@
 		C85F62F82A30994D002A24FA /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		C85F62FA2A30E096002A24FA /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		C85F62FC2A30E5E5002A24FA /* SizeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeViewController.swift; sourceTree = "<group>"; };
+		C85F62FE2A3103DD002A24FA /* HIstoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HIstoryViewController.swift; sourceTree = "<group>"; };
+		C87EB0FF2A317FB70093C5E9 /* ImagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesViewController.swift; sourceTree = "<group>"; };
+		C87EB1012A3189610093C5E9 /* OrderDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailViewController.swift; sourceTree = "<group>"; };
+		C87EB1032A31B8260093C5E9 /* Rosourses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rosourses.swift; sourceTree = "<group>"; };
+		C87EB1052A31B8FC0093C5E9 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		C89810C42A2D9AE200F22597 /* FinalProject2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinalProject2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C89810C72A2D9AE200F22597 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C89810CB2A2D9AE200F22597 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +109,11 @@
 				C85F62F82A30994D002A24FA /* ProfileViewController.swift */,
 				C85F62FA2A30E096002A24FA /* AccountViewController.swift */,
 				C85F62FC2A30E5E5002A24FA /* SizeViewController.swift */,
+				C85F62FE2A3103DD002A24FA /* HIstoryViewController.swift */,
+				C87EB0FF2A317FB70093C5E9 /* ImagesViewController.swift */,
+				C87EB1012A3189610093C5E9 /* OrderDetailViewController.swift */,
+				C87EB1032A31B8260093C5E9 /* Rosourses.swift */,
+				C87EB1052A31B8FC0093C5E9 /* TabBarViewController.swift */,
 			);
 			path = FinalProject2;
 			sourceTree = "<group>";
@@ -173,8 +188,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C87EB1002A317FB70093C5E9 /* ImagesViewController.swift in Sources */,
 				C8D662B92A2F234D0087CC97 /* CatalogViewController.swift in Sources */,
 				C85F62F72A30793D002A24FA /* BottomSheetViewController.swift in Sources */,
+				C87EB1042A31B8260093C5E9 /* Rosourses.swift in Sources */,
+				C87EB1062A31B8FC0093C5E9 /* TabBarViewController.swift in Sources */,
 				C85F62FB2A30E096002A24FA /* AccountViewController.swift in Sources */,
 				C89810E42A2DEDAD00F22597 /* TestViewController.swift in Sources */,
 				C89810DC2A2D9E0300F22597 /* PageViewController.swift in Sources */,
@@ -184,9 +202,11 @@
 				C8D662B52A2F05180087CC97 /* CustomButton.swift in Sources */,
 				C89811082A2E52DC00F22597 /* WelcomeViewController.swift in Sources */,
 				C8D662BD2A2F6D0D0087CC97 /* CartViewController.swift in Sources */,
+				C87EB1022A3189610093C5E9 /* OrderDetailViewController.swift in Sources */,
 				C85F62FD2A30E5E5002A24FA /* SizeViewController.swift in Sources */,
 				C8D662B12A2EE2C50087CC97 /* RegistrationViewController.swift in Sources */,
 				C85F62F92A30994D002A24FA /* ProfileViewController.swift in Sources */,
+				C85F62FF2A3103DD002A24FA /* HIstoryViewController.swift in Sources */,
 				C8D662B72A2F0B180087CC97 /* AuthViewController.swift in Sources */,
 				C89810C82A2D9AE200F22597 /* AppDelegate.swift in Sources */,
 			);
