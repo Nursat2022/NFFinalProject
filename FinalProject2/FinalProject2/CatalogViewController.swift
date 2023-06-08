@@ -7,8 +7,6 @@
 
 import UIKit
 
-let sneakers = [Sneakers(imageName: "sneakers1", name: "Dolce & Gabbana", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers2", name: "Off-White", description: "Кроссовки Off-Court 3.0", price: 551), Sneakers(imageName: "sneakers3", name: "Jordan", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers4", name: "Jordan", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers5", name: "Balenciaga", description: "кроссовки Runner", price: 945), Sneakers(imageName: "sneakers6", name: "Lanvin", description: "кроссовки Curb на шнуровке", price: 700), Sneakers(imageName: "sneakers7", name: "Off-White", description: "кроссовки Odsy-1000", price: 900), Sneakers(imageName: "sneakers8", name: "Adidas YEEZY", description: "Кроссовки YEEZY 700 V3 Copper Fade", price: 255), Sneakers(imageName: "sneakers9", name: "Jordan", description: "кроссовки Jordan Max Aura 4", price: 543), Sneakers(imageName: "sneakers10", name: "Jordan", description: "кроссовки Air Jordan 1 Retro", price: 350), Sneakers(imageName: "sneakers11", name: "Off-White", description: "кроссовки с логотипом Arrows", price: 405), Sneakers(imageName: "sneakers12", name: "Maison Mihara Yasuhiro", description: "кроссовки с контрастной шнуровкой", price: 700)]
-
 class CatalogViewController: UIViewController, UIScrollViewDelegate {
     let scrolView = UIScrollView()
     private let contentView = UIView()
@@ -37,6 +35,20 @@ class CatalogViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        for stackView in stackViews {
+            for view in stackView.arrangedSubviews {
+                view.removeFromSuperview()
+                stackView.removeArrangedSubview(view)
+            }
+        }
+        
+        for i in 0..<sneakers.count/2 {
+            stackViews[i].addArrangedSubview(productView(sneakers: sneakers[i * 2]))
+            stackViews[i].addArrangedSubview(productView(sneakers: sneakers[i * 2 + 1]))
+        }
     }
     
     func setup() {
@@ -218,10 +230,16 @@ extension productView {
         }
         else {
             if let numberOfOrders = orders[sneakers] {
-                orders[sneakers] = numberOfOrders - 1
+                if numberOfOrders == 1 {
+                    orders[sneakers] = nil
+                }
+                else {
+                    orders[sneakers] = numberOfOrders - 1
+                }
             }
         }
         setupAddButton()
         setUpPricelabel()
     }
 }
+

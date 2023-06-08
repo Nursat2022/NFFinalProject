@@ -8,6 +8,7 @@
 import UIKit
 
 class CartViewController: UIViewController, CartViewDelegate {
+    
     func cartViewDidUpdateProductCount(_ cartView: CartView, count: Int) {
         productCount += count
         totalLabel.text = "\(productCount) items: Total (Including Delivery)"
@@ -18,6 +19,11 @@ class CartViewController: UIViewController, CartViewDelegate {
         if productCount == 0 {
             updateUI()
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        update()
     }
     
     let vectorImage: UIImageView = {
@@ -71,7 +77,6 @@ class CartViewController: UIViewController, CartViewDelegate {
     
     lazy var priceLabel: UILabel = {
         let label = UILabel()
-        //MARK: CHANGE
         label.text = "$\(totalPrice)"
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -92,6 +97,36 @@ class CartViewController: UIViewController, CartViewDelegate {
         setup()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        productCount = orders.values.reduce(0, +)
+        
+        var count = 0
+        for (key, value) in orders {
+            count += key.price * value
+        }
+        totalPrice = count
+        
+        totalLabel.text = "\(productCount) items: Total (Including Delivery)"
+        priceLabel.text = "$\(totalPrice)"
+        print(productCount)
+        if productCount == 0 {
+            emptyVStackView.isHidden = false
+            vectorImage.isHidden = false
+            
+            VStackView.isHidden = true
+            totalView.isHidden = true
+            confirmButton.isHidden = true
+        }
+        else {
+            confirmButton.isHidden = false
+            VStackView.isHidden = false
+            totalView.isHidden = false
+            emptyVStackView.isHidden = true
+            vectorImage.isHidden = true
+        }
+    }
+    
     lazy var VStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -109,7 +144,29 @@ class CartViewController: UIViewController, CartViewDelegate {
         return stackView
     }()
     
+    func update() {
+        for myView in VStackView.arrangedSubviews {
+            if let view = myView as? CartView {
+                view.removeFromSuperview()
+                VStackView.removeArrangedSubview(view)
+            }
+        }
+        
+        for order in orders {
+            let cartView = CartView(sneakers: order.key)
+            cartView.delegate = self
+            VStackView.addArrangedSubview(cartView)
+        }
+        VStackView.addArrangedSubview(totalView)
+    }
+    
     func setup() {
+        for order in orders {
+            let cartView = CartView(sneakers: order.key)
+            cartView.delegate = self
+            VStackView.addArrangedSubview(cartView)
+        }
+        
         self.navigationItem.title = "Cart"
         view.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
         totalView.addSubview(totalLabel)
@@ -126,13 +183,6 @@ class CartViewController: UIViewController, CartViewDelegate {
         else {
             emptyVStackView.isHidden = true
             vectorImage.isHidden = true
-        }
-        
-        for order in orders {
-            let cartView = CartView(sneakers: order.key)
-            cartView.delegate = self
-            VStackView.addArrangedSubview(cartView)
-            
         }
         emptyVStackView.addArrangedSubview(emptyLabel)
         emptyVStackView.addArrangedSubview(emptySubLabel)
@@ -362,6 +412,7 @@ extension CartView {
     @objc func minusTapped(_ sender: UIButton) {
         orders[sneakers]! -= 1
         if orders[self.sneakers]! == 0 {
+            orders[self.sneakers] = nil
             self.removeFromSuperview()
         }
         else {
