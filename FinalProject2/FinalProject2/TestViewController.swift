@@ -7,6 +7,9 @@
 
 import UIKit
 
+let h = UIScreen.main.bounds.height
+let w = UIScreen.main.bounds.width
+
 class TestViewController: UIViewController {
     
     let roundedRectangle: UIImageView = {
@@ -63,9 +66,18 @@ class TestViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             secondImage.rightAnchor.constraint(equalTo: view.rightAnchor),
-            secondImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 90),
+            secondImage.topAnchor.constraint(equalTo: view.topAnchor, constant: h * CGFloat(90/844.0)),
+            secondImage.heightAnchor.constraint(equalToConstant: h * CGFloat(192/844.0)),
+            secondImage.widthAnchor.constraint(equalToConstant: w * CGFloat(231/390.0)),
             
-            vectorImage.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
+            firstImage.heightAnchor.constraint(equalToConstant: h * CGFloat(495/844.0)),
+            firstImage.widthAnchor.constraint(equalToConstant: w * CGFloat(346/390.0)),
+            firstImage.leftAnchor.constraint(equalTo: view.leftAnchor),
+            firstImage.bottomAnchor.constraint(equalTo: secondImage.bottomAnchor, constant: h * CGFloat(220/844.0)),
+            
+            vectorImage.heightAnchor.constraint(equalToConstant: h * CGFloat(396/844.0)),
+            vectorImage.widthAnchor.constraint(equalToConstant: w),
+            vectorImage.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -h * CGFloat(10/844.0)),
             containerView.leftAnchor.constraint(equalTo: view.leftAnchor),
             containerView.rightAnchor.constraint(equalTo: view.rightAnchor),
             containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
