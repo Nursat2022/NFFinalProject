@@ -9,21 +9,8 @@ import UIKit
 
 var today = Date()
 
-class CartViewController: UIViewController, CartViewDelegate {
+class CartViewController: UIViewController {
     weak var delegate: CartViewControllerDelegate?
-    
-    func cartViewDidUpdateProductCount(_ cartView: CartView, count: Int) {
-        productCount += count
-        totalLabel.text = "\(productCount) items: Total (Including Delivery)"
-        
-        totalPrice += count * cartView.sneakers.price
-        priceLabel.text = "$\(totalPrice)"
-        
-        if productCount == 0 {
-            updateUI()
-        }
-        delegate?.updateBadgeValue(value: orders.count == 0 ? nil : "\(orders.count)", color: .black)
-    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -195,8 +182,6 @@ class CartViewController: UIViewController, CartViewDelegate {
         }
         emptyVStackView.addArrangedSubview(emptyLabel)
         emptyVStackView.addArrangedSubview(emptySubLabel)
-//        emptyVStackView.isHidden = true
-//        vectorImage.isHidden = true
         
         VStackView.addArrangedSubview(totalView)
         
@@ -211,8 +196,6 @@ class CartViewController: UIViewController, CartViewDelegate {
         
         for myView in VStackView.arrangedSubviews {
             myView.translatesAutoresizingMaskIntoConstraints = false
-//            let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
-//            myView.addGestureRecognizer(panGestureRecognizer)
         }
         
         VStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -224,7 +207,7 @@ class CartViewController: UIViewController, CartViewDelegate {
         contentView.addSubview(VStackView)
         
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 98),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: h * CGFloat(98/844.0)),
             scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
             scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -248,7 +231,7 @@ class CartViewController: UIViewController, CartViewDelegate {
             priceLabel.centerYAnchor.constraint(equalTo: totalView.centerYAnchor),
             priceLabel.rightAnchor.constraint(equalTo: totalView.rightAnchor,constant: -16),
             
-            confirmButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            confirmButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -h * CGFloat(100/844.0)),
             confirmButton.leftAnchor.constraint(equalTo: view.leftAnchor,constant: 16),
             confirmButton.rightAnchor.constraint(equalTo: view.rightAnchor,constant: -16),
             confirmButton.heightAnchor.constraint(equalToConstant: 54),
@@ -292,7 +275,6 @@ extension CartViewController {
             orderHistory.append(orderData(number: numberOfOrders, date: "\(today.getDay())", numberOfItems: productCount, totalPrice: totalPrice, products: orders))
             orders = [:]
             delegate?.updateBadgeValue(value: orders.count == 0 ? nil : "\(orders.count)", color: .black)
-            updateUI()
         })
     }
 }
@@ -421,6 +403,7 @@ class CartView: UIView {
     }
 }
 
+//MARK: EXTENSION CartView
 extension CartView {
     @objc func minusTapped(_ sender: UIButton) {
         orders[sneakers]! -= 1
@@ -441,10 +424,27 @@ extension CartView {
     }
 }
 
+//MARK: PROTOCOLS
 protocol CartViewDelegate: AnyObject {
     func cartViewDidUpdateProductCount(_ cartView: CartView, count: Int)
 }
 
 protocol CartViewControllerDelegate: AnyObject {
     func updateBadgeValue(value: String?, color: UIColor?)
+}
+
+//MARK: EXTENSION CartViewController
+extension CartViewController: CartViewDelegate {
+    func cartViewDidUpdateProductCount(_ cartView: CartView, count: Int) {
+        productCount += count
+        totalLabel.text = "\(productCount) items: Total (Including Delivery)"
+        
+        totalPrice += count * cartView.sneakers.price
+        priceLabel.text = "$\(totalPrice)"
+        
+        if productCount == 0 {
+            updateUI()
+        }
+        delegate?.updateBadgeValue(value: orders.count == 0 ? nil : "\(orders.count)", color: .black)
+    }
 }

@@ -15,7 +15,6 @@ class PageViewController: UIPageViewController {
     
     let roundedRectangle: UIImageView = {
         let view = UIImageView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -23,7 +22,6 @@ class PageViewController: UIPageViewController {
         let label = UILabel()
         label.text = "Fast shipping"
         label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         return label
     }()
@@ -31,7 +29,6 @@ class PageViewController: UIPageViewController {
     let subLabel: UILabel = {
         let label = UILabel()
         label.text = "Get all of your desired sneakers in one place."
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 17)
         return label
@@ -39,7 +36,6 @@ class PageViewController: UIPageViewController {
     
     lazy var stackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 24
         stackView.alignment = .center
@@ -48,7 +44,6 @@ class PageViewController: UIPageViewController {
     
     let button: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Next", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
@@ -73,6 +68,10 @@ class PageViewController: UIPageViewController {
     }
     
     func setup() {
+        [roundedRectangle, label, subLabel, stackView, button].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
         view.backgroundColor = .white
         self.dataSource = self
         self.delegate = self

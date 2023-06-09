@@ -7,11 +7,9 @@
 
 import UIKit
 
-//let orderDetail = []
-
 class OrderDetailViewController: UIViewController {
-    
     let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), style: .grouped)
+    let order: orderData
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +18,6 @@ class OrderDetailViewController: UIViewController {
         let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
         self.navigationController?.navigationBar.barTintColor = .black
-        self.title = "Order #123"
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -38,6 +35,16 @@ class OrderDetailViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
+    
+    init(order: orderData) {
+        self.order = order
+        super.init(nibName: nil, bundle: nil)
+        self.navigationItem.title = "Order #\(order.number)"
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 extension OrderDetailViewController: UITableViewDelegate, UITableViewDataSource {
@@ -46,7 +53,7 @@ extension OrderDetailViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        7
+        order.products.count + 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -55,16 +62,21 @@ extension OrderDetailViewController: UITableViewDelegate, UITableViewDataSource 
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! cellForData
             cell.isUserInteractionEnabled = false
             cell.namelabel.text = "Ordered"
-            cell.dataLabel.text = "12.04.2023"
+            cell.dataLabel.text = "\(order.date)"
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! cellForData
             cell.isUserInteractionEnabled = false
-            cell.namelabel.text = "2 items: Total (Including Delivery)"
-            cell.dataLabel.text = "$650"
+            cell.namelabel.text = "\(order.numberOfItems) items: Total (Including Delivery)"
+            cell.dataLabel.text = "$\(order.totalPrice)"
             return cell
         default:
+            let products = Array(order.products.keys)
             let cell = tableView.dequeueReusableCell(withIdentifier: "productCell", for: indexPath) as! cellForProduct
+            cell.image.image = UIImage(named: products[indexPath.section - 2].imageName)
+            cell.name.text = products[indexPath.section - 2].name
+            cell.descriptionLabel.text = products[indexPath.section - 2].description
+            cell.itemPriceLabel.text = "\(order.products[products[indexPath.section - 2]]!) • $\(products[indexPath.section - 2].price)"
             cell.isUserInteractionEnabled = false
             return cell
         }
@@ -130,15 +142,17 @@ class cellForData: UITableViewCell {
 }
 
 class cellForProduct: UITableViewCell {
-    let image: UIImageView = {
+    var image: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: "sneakers2")
+        //MARK: CHANGE
+//        view.image = UIImage(named: "sneakers2")
         return view
     }()
     
     let name: UILabel = {
         let label = UILabel()
-        label.text = "New Balance"
+        //MARK: CHANGE
+//        label.text = "New Balance"
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
         label.numberOfLines = 0
@@ -149,7 +163,8 @@ class cellForProduct: UITableViewCell {
         let label = UILabel()
         label.textColor = UIColor(red: 142/255, green: 142/255, blue: 147/255, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 12)
-        label.text = "Кроссовки 993 Brown из коллаборации с Aimé Leon Dore"
+        //MARK: CHANGE
+//        label.text = "Кроссовки 993 Brown из коллаборации с Aimé Leon Dore"
         label.numberOfLines = 0
         return label
     }()
@@ -158,7 +173,8 @@ class cellForProduct: UITableViewCell {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
-        label.text = "4 • $1234"
+        //MARK: CHANGE
+//        label.text = "4 • $1234"
         return label
     }()
     
@@ -191,5 +207,14 @@ class cellForProduct: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+
+extension Date {
+    func getDay() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.YY"
+        return formatter.string(from: self)
     }
 }

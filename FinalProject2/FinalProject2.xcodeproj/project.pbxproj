@@ -18,7 +18,6 @@
 		C87EB1042A31B8260093C5E9 /* Rosourses.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87EB1032A31B8260093C5E9 /* Rosourses.swift */; };
 		C87EB1062A31B8FC0093C5E9 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87EB1052A31B8FC0093C5E9 /* TabBarViewController.swift */; };
 		C89810C82A2D9AE200F22597 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89810C72A2D9AE200F22597 /* AppDelegate.swift */; };
-		C89810CC2A2D9AE200F22597 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89810CB2A2D9AE200F22597 /* ViewController.swift */; };
 		C89810D12A2D9AE300F22597 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C89810D02A2D9AE300F22597 /* Assets.xcassets */; };
 		C89810D42A2D9AE300F22597 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C89810D22A2D9AE300F22597 /* LaunchScreen.storyboard */; };
 		C89810DC2A2D9E0300F22597 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C89810DB2A2D9E0300F22597 /* PageViewController.swift */; };
@@ -45,7 +44,6 @@
 		C87EB1052A31B8FC0093C5E9 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		C89810C42A2D9AE200F22597 /* FinalProject2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinalProject2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C89810C72A2D9AE200F22597 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C89810CB2A2D9AE200F22597 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C89810D02A2D9AE300F22597 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C89810D32A2D9AE300F22597 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C89810D52A2D9AE300F22597 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -91,7 +89,6 @@
 			isa = PBXGroup;
 			children = (
 				C89810C72A2D9AE200F22597 /* AppDelegate.swift */,
-				C89810CB2A2D9AE200F22597 /* ViewController.swift */,
 				C89810E32A2DEDAD00F22597 /* TestViewController.swift */,
 				C89810D02A2D9AE300F22597 /* Assets.xcassets */,
 				C89810D22A2D9AE300F22597 /* LaunchScreen.storyboard */,
@@ -197,7 +194,6 @@
 				C89810E42A2DEDAD00F22597 /* TestViewController.swift in Sources */,
 				C89810DC2A2D9E0300F22597 /* PageViewController.swift in Sources */,
 				C85F62F52A3032FD002A24FA /* Data.swift in Sources */,
-				C89810CC2A2D9AE200F22597 /* ViewController.swift in Sources */,
 				C8D662B32A2EF3AF0087CC97 /* TextField.swift in Sources */,
 				C8D662B52A2F05180087CC97 /* CustomButton.swift in Sources */,
 				C89811082A2E52DC00F22597 /* WelcomeViewController.swift in Sources */,

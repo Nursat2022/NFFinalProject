@@ -27,6 +27,7 @@ struct orderData {
     var date: String
     var numberOfItems: Int
     var totalPrice: Int
+    var products: [Sneakers: Int]
 }
 
 var orderHistory: [orderData] = []
@@ -37,7 +38,7 @@ func setupOrders() {
 //        orders["\(sneaker.name) \(sneaker.description)"] = 0
 //    }
 //    orders["\(sneakers[1].name) \(sneakers[1].description)"] = 3
-    orders[sneakers[1]] = 3
-    orders[sneakers[0]] = 6
+//    orders[sneakers[1]] = 3
+//    orders[sneakers[0]] = 6
 }
 

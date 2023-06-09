@@ -7,11 +7,13 @@
 
 import UIKit
 
-class CatalogViewController: UIViewController, UIScrollViewDelegate, productViewDelegate {
+extension CatalogViewController: productViewDelegate {
     func update() {
         delegate?.updateBadgeValue(value: orders.count == 0 ? nil : "\(orders.count)", color: .gray)
     }
-    
+}
+
+class CatalogViewController: UIViewController, UIScrollViewDelegate {
     weak var delegate: CartViewControllerDelegate?
     let scrolView = UIScrollView()
     private let contentView = UIView()
@@ -88,7 +90,7 @@ class CatalogViewController: UIViewController, UIScrollViewDelegate, productView
         
         
         NSLayoutConstraint.activate([
-            scrolView.topAnchor.constraint(equalTo: view.topAnchor, constant: 98),
+            scrolView.topAnchor.constraint(equalTo: view.topAnchor, constant: h * CGFloat(98/844.0)),
             scrolView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             scrolView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
             scrolView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -105,6 +107,7 @@ class CatalogViewController: UIViewController, UIScrollViewDelegate, productView
     }
 }
 
+//MARK: SNEAKERS
 struct Sneakers: Hashable {
     var imageName: String
     var name: String
@@ -112,6 +115,7 @@ struct Sneakers: Hashable {
     var price: Int
 }
 
+//MARK: PRODUCT VIEW
 class productView: UIView {
     weak var delegate: productViewDelegate?
     let imageView: UIImageView = {
@@ -202,7 +206,7 @@ class productView: UIView {
         
         NSLayoutConstraint.activate([
             self.heightAnchor.constraint(equalToConstant: 282),
-            self.widthAnchor.constraint(equalToConstant: 174),
+            self.widthAnchor.constraint(equalToConstant: w * CGFloat(174/390.0)),
             
             imageView.topAnchor.constraint(equalTo: self.topAnchor),
             imageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 4),

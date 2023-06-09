@@ -38,7 +38,7 @@ class SizeViewController: UIViewController {
         let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
         self.navigationController?.navigationBar.barTintColor = .black
-        self.title = "Shoe Size"
+        self.navigationItem.title = "Shoe Size"
 
         SaveButton.addTarget(self, action: #selector(submit(_:)), for: .touchUpInside)
 
@@ -51,7 +51,7 @@ class SizeViewController: UIViewController {
             SaveButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             SaveButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
             SaveButton.heightAnchor.constraint(equalToConstant: 54),
-            SaveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50)
+            SaveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
         ])
     }
 }

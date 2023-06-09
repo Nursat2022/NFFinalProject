@@ -56,7 +56,7 @@ class RegistrationViewController: UIViewController {
         let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
         self.navigationController?.navigationBar.barTintColor = .black
-        self.title = "New User"
+        self.navigationItem.title = "New User"
         
         SignUpButton.addTarget(self, action: #selector(submit(_:)), for: .touchUpInside)
         
@@ -80,12 +80,12 @@ class RegistrationViewController: UIViewController {
             repeatField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
             repeatField.heightAnchor.constraint(equalToConstant: 48),
             
-            stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 140),
+            stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: h * CGFloat(140/844.0)),
             
             SignUpButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             SignUpButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
             SignUpButton.heightAnchor.constraint(equalToConstant: 54),
-            SignUpButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50)
+            SignUpButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -h * CGFloat(50/844.0))
         ])
     }
 }

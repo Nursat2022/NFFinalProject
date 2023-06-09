@@ -45,7 +45,7 @@ class AuthViewController: UIViewController {
         let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
         self.navigationController?.navigationBar.barTintColor = .black
-        self.title = "Welcome back!"
+        self.navigationItem.title = "Welcome back!"
         signInButton.addTarget(self, action: #selector(signIn(_:)), for: .touchUpInside)
         
         stackView.addArrangedSubview(usernameField)
@@ -59,7 +59,7 @@ class AuthViewController: UIViewController {
         }
         
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 140),
+            stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: h * CGFloat(140/844.0)),
             
             usernameField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             usernameField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
@@ -72,7 +72,7 @@ class AuthViewController: UIViewController {
             signInButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             signInButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
             signInButton.heightAnchor.constraint(equalToConstant: 54),
-            signInButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50)
+            signInButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -h * CGFloat(50/844.0))
         ])
     }
 }

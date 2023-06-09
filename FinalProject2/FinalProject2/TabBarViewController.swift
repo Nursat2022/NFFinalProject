@@ -13,7 +13,12 @@ enum Tabs: Int {
     case profile
 }
 
-final class TabBarController: UITabBarController {
+final class TabBarController: UITabBarController, CartViewControllerDelegate {
+    func updateBadgeValue(value: String?, color: UIColor?) {
+        tabBar.items![1].badgeValue = value
+        tabBar.items![1].badgeColor = color
+    }
+    
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -30,10 +35,17 @@ final class TabBarController: UITabBarController {
         tabBar.layer.borderColor = Resources.Colors.separator.cgColor
         tabBar.layer.borderWidth = 1
         tabBar.layer.masksToBounds = true
+        let catalogViewController = CatalogViewController()
+        let cartViewController = CartViewController()
+        let profileViewController = ProfileViewController()
         
-        let navVC1 = UINavigationController(rootViewController: CatalogViewController())
-        let navVC2 = UINavigationController(rootViewController: CartViewController())
-        let navVC3 = UINavigationController(rootViewController: ProfileViewController())
+        cartViewController.delegate = self
+        catalogViewController.delegate = self
+        
+        let navVC1 = UINavigationController(rootViewController: catalogViewController)
+        let navVC2 = UINavigationController(rootViewController: cartViewController)
+        let navVC3 = UINavigationController(rootViewController: profileViewController)
+        
         
         navVC1.tabBarItem = UITabBarItem(title: Resources.Strings.TabBar.catalog, image: Resources.Images.TabBar.catalog, tag: Tabs.catalog.rawValue)
         navVC2.tabBarItem = UITabBarItem(title: Resources.Strings.TabBar.cart, image: Resources.Images.TabBar.cart, tag: Tabs.cart.rawValue)
@@ -44,5 +56,7 @@ final class TabBarController: UITabBarController {
             navVC2,
             navVC3
         ], animated: true)
+        
+        updateBadgeValue(value: orders.count == 0 ? nil : "\(orders.count)", color: .gray)
     }
 }

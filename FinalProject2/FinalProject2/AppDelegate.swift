@@ -23,15 +23,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window?.rootViewController = UINavigationController(rootViewController: ProfileViewController())
 //        window?.rootViewController = UINavigationController(rootViewController: ImagesViewController())
 //        window?.rootViewController = UINavigationController(rootViewController: HistoryViewController())
-        window?.rootViewController = UINavigationController(rootViewController: OrderDetailViewController())
-//        let tabVC = TabBarController()
-//        window?.rootViewController = tabVC
+//        window?.rootViewController = UINavigationController(rootViewController: his)
+        let tabVC = TabBarController()
+        window?.rootViewController = tabVC
 //        window?.rootViewController = UINavigationController(rootViewController: SizeViewController())
 //        window?.rootViewController = UINavigationController(rootViewController: AccountViewController())
 //        window?.rootViewController = UINavigationController(rootViewController: ScrolController())
         
         //        window?.rootViewController = ViewController()
-        //        window?.rootViewController = UINavigationController(rootViewController: PageViewController())
+//                window?.rootViewController = UINavigationController(rootViewController: PageViewController())
 //                window?.rootViewController = UINavigationController(rootViewController: WelcomeViewController())
 
 //        let isOnboardingSeen = UserDefaults.standard.bool(forKey: "isOnboardingSeen")

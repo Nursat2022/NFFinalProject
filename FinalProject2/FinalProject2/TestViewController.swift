@@ -50,7 +50,10 @@ class TestViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setup()
+    }
+    
+    func setup() {
         view.backgroundColor = .white
         [firstImage, containerView, secondImage].forEach {
             view.addSubview($0)

@@ -9,7 +9,6 @@ import UIKit
 
 class WelcomeViewController: UIViewController {
     
-    
     lazy var vectorImage: UIImageView = {
         let view = UIImageView()
         return view
@@ -83,7 +82,6 @@ class WelcomeViewController: UIViewController {
         [vectorImage, firstImage, secondImage, stackView].forEach {
             view.addSubview($0)
         }
-        
         
         NSLayoutConstraint.activate([
             vectorImage.topAnchor.constraint(equalTo: view.topAnchor),
