@@ -45,13 +45,13 @@ class SizeViewController: UIViewController {
         NSLayoutConstraint.activate([
             sizeField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             sizeField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
-            sizeField.topAnchor.constraint(equalTo: view.topAnchor, constant: 104),
+            sizeField.topAnchor.constraint(equalTo: view.topAnchor, constant: h * CGFloat(104/844.0)),
             sizeField.heightAnchor.constraint(equalToConstant: 48),
 
             SaveButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             SaveButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
             SaveButton.heightAnchor.constraint(equalToConstant: 54),
-            SaveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
+            SaveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -h * CGFloat(100/844.0))
         ])
     }
 }

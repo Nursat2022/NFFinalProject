@@ -21,6 +21,7 @@ class TextField: UITextField {
     }
     
     func setup() {
+        autocapitalizationType = .none
         tintColor = UIColor.black
         layer.cornerRadius = 4
         backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)

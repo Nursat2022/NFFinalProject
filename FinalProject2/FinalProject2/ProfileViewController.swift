@@ -36,14 +36,14 @@ class ProfileViewController: UIViewController {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 114),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: h * CGFloat(114/844.0)),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             button.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             button.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
-            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -h * CGFloat(100/844.0)),
             button.heightAnchor.constraint(equalToConstant: 54)
         ])
     }

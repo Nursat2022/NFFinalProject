@@ -18,6 +18,7 @@ class AuthViewController: UIViewController {
     let passwordField: TextField = {
         let textField = TextField()
         textField.placeholder = "Password"
+        textField.isSecureTextEntry = true
         return textField
     }()
     

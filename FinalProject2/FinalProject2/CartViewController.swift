@@ -9,7 +9,12 @@ import UIKit
 
 var today = Date()
 
-class CartViewController: UIViewController {
+class CartViewController: UIViewController, BottomSheetViewControllerDelegate {
+    func bottomSheetViewControllerDismissed() {
+        self.updateUI()
+        numberOfOrders += 1
+    }
+    
     weak var delegate: CartViewControllerDelegate?
     
     override func viewDidAppear(_ animated: Bool) {
@@ -257,12 +262,13 @@ extension CartViewController {
     }
 }
 
+//MARK: VC
 extension CartViewController {
     @objc func confirm(_ sender: UIButton) {
         let vc = BottomSheetViewController()
+        vc.delegate = self
         vc.button.addAction(.init(handler: { [self] _ in
             vc.dismiss(animated: true)
-            self.updateUI()
             numberOfOrders += 1
         }), for: .touchUpInside)
         

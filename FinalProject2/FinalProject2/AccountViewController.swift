@@ -90,12 +90,12 @@ class AccountViewController: UIViewController {
             repeatField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
             repeatField.heightAnchor.constraint(equalToConstant: 48),
             
-            stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 104),
+            stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: h * CGFloat(104/844.0)),
             
             SaveButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             SaveButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
             SaveButton.heightAnchor.constraint(equalToConstant: 54),
-            SaveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            SaveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -h * CGFloat(100/844.0)),
             
             wrongPasswordError.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             wrongPasswordError.centerYAnchor.constraint(equalTo: view.centerYAnchor),
