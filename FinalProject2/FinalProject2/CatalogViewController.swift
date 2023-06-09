@@ -7,7 +7,12 @@
 
 import UIKit
 
-class CatalogViewController: UIViewController, UIScrollViewDelegate {
+class CatalogViewController: UIViewController, UIScrollViewDelegate, productViewDelegate {
+    func update() {
+        delegate?.updateBadgeValue(value: orders.count == 0 ? nil : "\(orders.count)", color: .gray)
+    }
+    
+    weak var delegate: CartViewControllerDelegate?
     let scrolView = UIScrollView()
     private let contentView = UIView()
     
@@ -46,8 +51,12 @@ class CatalogViewController: UIViewController, UIScrollViewDelegate {
         }
         
         for i in 0..<sneakers.count/2 {
-            stackViews[i].addArrangedSubview(productView(sneakers: sneakers[i * 2]))
-            stackViews[i].addArrangedSubview(productView(sneakers: sneakers[i * 2 + 1]))
+            let product1 = productView(sneakers: sneakers[i * 2])
+            let product2 = productView(sneakers: sneakers[i * 2 + 1])
+            product1.delegate = self
+            product2.delegate = self
+            stackViews[i].addArrangedSubview(product1)
+            stackViews[i].addArrangedSubview(product2)
         }
     }
     
@@ -104,6 +113,7 @@ struct Sneakers: Hashable {
 }
 
 class productView: UIView {
+    weak var delegate: productViewDelegate?
     let imageView: UIImageView = {
         let view = UIImageView()
         return view
@@ -227,11 +237,13 @@ extension productView {
     @objc func addButtonTapped(_ sender: UIButton) {
         if addButton.titleLabel?.text == "Add to cart" {
             orders[sneakers] = 1
+            delegate?.update()
         }
         else {
             if let numberOfOrders = orders[sneakers] {
                 if numberOfOrders == 1 {
                     orders[sneakers] = nil
+                    delegate?.update()
                 }
                 else {
                     orders[sneakers] = numberOfOrders - 1
@@ -243,3 +255,6 @@ extension productView {
     }
 }
 
+protocol productViewDelegate: AnyObject {
+    func update()
+}

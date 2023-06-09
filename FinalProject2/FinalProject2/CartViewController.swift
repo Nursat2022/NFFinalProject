@@ -7,7 +7,10 @@
 
 import UIKit
 
+var today = Date()
+
 class CartViewController: UIViewController, CartViewDelegate {
+    weak var delegate: CartViewControllerDelegate?
     
     func cartViewDidUpdateProductCount(_ cartView: CartView, count: Int) {
         productCount += count
@@ -19,6 +22,7 @@ class CartViewController: UIViewController, CartViewDelegate {
         if productCount == 0 {
             updateUI()
         }
+        delegate?.updateBadgeValue(value: orders.count == 0 ? nil : "\(orders.count)", color: .black)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -97,8 +101,14 @@ class CartViewController: UIViewController, CartViewDelegate {
         setup()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        delegate?.updateBadgeValue(value: orders.count == 0 ? nil : "\(orders.count)", color: .gray)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        delegate?.updateBadgeValue(value: orders.count == 0 ? nil : "\(orders.count)", color: .black)
         productCount = orders.values.reduce(0, +)
         
         var count = 0
@@ -270,7 +280,6 @@ extension CartViewController {
         vc.button.addAction(.init(handler: { [self] _ in
             vc.dismiss(animated: true)
             self.updateUI()
-            orderHistory.append(orderData(number: numberOfOrders, date: "08.06.2023", numberOfItems: productCount, totalPrice: totalPrice))
             numberOfOrders += 1
         }), for: .touchUpInside)
         
@@ -279,8 +288,11 @@ extension CartViewController {
         if let sheet = navVC.sheetPresentationController {
             sheet.detents = [.medium()]
         }
-        navigationController?.present(navVC, animated: true, completion: {
+        navigationController?.present(navVC, animated: true, completion: { [self] in
+            orderHistory.append(orderData(number: numberOfOrders, date: "\(today.getDay())", numberOfItems: productCount, totalPrice: totalPrice, products: orders))
             orders = [:]
+            delegate?.updateBadgeValue(value: orders.count == 0 ? nil : "\(orders.count)", color: .black)
+            updateUI()
         })
     }
 }
@@ -431,4 +443,8 @@ extension CartView {
 
 protocol CartViewDelegate: AnyObject {
     func cartViewDidUpdateProductCount(_ cartView: CartView, count: Int)
+}
+
+protocol CartViewControllerDelegate: AnyObject {
+    func updateBadgeValue(value: String?, color: UIColor?)
 }
