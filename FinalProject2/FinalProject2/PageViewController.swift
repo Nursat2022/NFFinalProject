@@ -79,9 +79,9 @@ class PageViewController: UIPageViewController {
         pageControl.addTarget(self, action: #selector(pageControlTapped(_:)), for: .valueChanged)
         button.addTarget(self, action: #selector(nextButtonTapped(_:)), for: .touchUpInside)
         
-        let page1 = TestViewController(firstImageName: "image1", secondImageName: "image2", vectorImageName: "vector1")
-        let page2 = TestViewController(firstImageName: "image3", secondImageName: "image4", vectorImageName: "vector2")
-        let page3 = TestViewController(firstImageName: "image5", secondImageName: "image6", vectorImageName: "vector3")
+        let page1 = TestViewController(firstImageName: "page1Sneakers1", secondImageName: "page1Sneakers2", vectorImageName: "page1Vector")
+        let page2 = TestViewController(firstImageName: "page2Sneakers1", secondImageName: "page2Sneakers2", vectorImageName: "page2Vector")
+        let page3 = TestViewController(firstImageName: "page3Sneakers1", secondImageName: "page3Sneakers2", vectorImageName: "page3Vector")
         
         pages.append(page1)
         pages.append(page2)
@@ -119,14 +119,14 @@ class PageViewController: UIPageViewController {
             roundedRectangle.leftAnchor.constraint(equalTo: view.leftAnchor),
             roundedRectangle.rightAnchor.constraint(equalTo: view.rightAnchor),
             roundedRectangle.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            roundedRectangle.heightAnchor.constraint(equalToConstant: 288),
+            roundedRectangle.heightAnchor.constraint(equalToConstant: h * CGFloat(288/844.0)),
             
             stackView.centerYAnchor.constraint(equalTo: roundedRectangle.centerYAnchor),
             stackView.centerXAnchor.constraint(equalTo: roundedRectangle.centerXAnchor),
             
             button.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             button.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
-            button.heightAnchor.constraint(equalToConstant: 54)
+            button.heightAnchor.constraint(equalToConstant: h * CGFloat(54/844.0))
         ])
     }
 }
