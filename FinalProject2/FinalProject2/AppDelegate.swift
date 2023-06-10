@@ -33,16 +33,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window?.rootViewController = UINavigationController(rootViewController: ScrolController())
         
         //        window?.rootViewController = ViewController()
-                window?.rootViewController = UINavigationController(rootViewController: PageViewController())
+//                window?.rootViewController = UINavigationController(rootViewController: PageViewController())
 //                window?.rootViewController = UINavigationController(rootViewController: WelcomeViewController())
 
-//        let isOnboardingSeen = UserDefaults.standard.bool(forKey: "isOnboardingSeen")
-//        if isOnboardingSeen {
-//            window?.rootViewController = UINavigationController(rootViewController: WelcomeViewController())
-//        }
-//        else {
-//            window?.rootViewController = UINavigationController(rootViewController: PageViewController())
-//        }
+        let isOnboardingSeen = UserDefaults.standard.bool(forKey: "isOnboardingSeen")
+        if isOnboardingSeen {
+            window?.rootViewController = UINavigationController(rootViewController: WelcomeViewController())
+        }
+        else {
+            window?.rootViewController = UINavigationController(rootViewController: PageViewController())
+        }
 //        window?.rootViewController = AuthViewController()
         return true
     }

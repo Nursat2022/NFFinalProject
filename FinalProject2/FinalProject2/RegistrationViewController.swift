@@ -33,12 +33,14 @@ class RegistrationViewController: UIViewController {
     let passwordField: TextField = {
         let textField = TextField()
         textField.placeholder = "Password"
+        textField.isSecureTextEntry = true
         return textField
     }()
     
     let repeatField: TextField = {
         let textField = TextField()
         textField.placeholder = "Repeat password"
+        textField.isSecureTextEntry = true
         return textField
     }()
     
@@ -105,15 +107,18 @@ class RegistrationViewController: UIViewController {
 
 extension RegistrationViewController {
     @objc func submit(_ sender: UIButton) {
+        let loader = loader(viewController: self)
         stateLabel.isHidden = false
         guard let email = usernameField.text, !email.isEmpty,
               let password = passwordField.text, !password.isEmpty,
               let repeatPass = repeatField.text, !repeatPass.isEmpty else {
+            stopLoader(loader: loader)
             stateLabel.text = "some fields are empty"
             return
         }
         
         guard password == repeatField.text else {
+            stopLoader(loader: loader)
             stateLabel.text = "repeat the password correctly"
             return
         }
@@ -121,6 +126,7 @@ extension RegistrationViewController {
         FirebaseAuth.Auth.auth().createUser(withEmail: email + "@gmail.com", password: password) {[weak self] result, error in
             guard let strongSelf = self else { return }
             guard error == nil else {
+                stopLoader(loader: loader)
                 strongSelf.stateLabel.text = "A user with this name already exists"
                 return
             }
@@ -129,7 +135,8 @@ extension RegistrationViewController {
             transition.duration = 0.1
             transition.type = CATransitionType.push
             transition.subtype = CATransitionSubtype.fromRight
-
+            
+            stopLoader(loader: loader)
             UIApplication.shared.keyWindow?.layer.add(transition, forKey: nil)
             UIApplication.shared.keyWindow?.rootViewController = TabBarController()
         }

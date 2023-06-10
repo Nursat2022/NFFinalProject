@@ -94,17 +94,20 @@ class AuthViewController: UIViewController {
 extension AuthViewController {
     @objc func signIn(_ sender: UIButton) {
         print("tapped")
+        let loader = loader(viewController: self)
         stateLabel.isHidden = false
         guard let email = usernameField.text, !email.isEmpty,
               let password = passwordField.text, !password.isEmpty else {
+            stopLoader(loader: loader)
             stateLabel.text = "missing field data"
             return
         }
 
         FirebaseAuth.Auth.auth().signIn(withEmail: email + "@gmail.com", password: password) { [weak self] result, error in
             guard let strongSelf = self else {return}
-
+            
             guard error == nil else {
+                stopLoader(loader: loader)
                 strongSelf.stateLabel.text = "Wrong username or password"
                 return
             }
@@ -118,9 +121,29 @@ extension AuthViewController {
             transition.duration = 0.1
             transition.type = CATransitionType.push
             transition.subtype = CATransitionSubtype.fromRight
-
+            
+            stopLoader(loader: loader)
             UIApplication.shared.keyWindow?.layer.add(transition, forKey: nil)
             UIApplication.shared.keyWindow?.rootViewController = TabBarController()
         }
+    }
+}
+
+//MARK: LOADER
+
+func loader(viewController: UIViewController) -> UIAlertController {
+    let alert = UIAlertController(title: nil, message: "Please wait", preferredStyle: .alert)
+    let indicator = UIActivityIndicatorView(frame: CGRect(x: 15, y: 15, width: 30, height: 30))
+    indicator.hidesWhenStopped = true
+    indicator.startAnimating()
+    indicator.style = .medium
+    alert.view.addSubview(indicator)
+    viewController.present(alert, animated: true)
+    return alert
+}
+
+func stopLoader(loader: UIAlertController) {
+    DispatchQueue.main.async {
+        loader.dismiss(animated: true)
     }
 }
