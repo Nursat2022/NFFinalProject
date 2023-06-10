@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow()
+        FirebaseApp.configure()
         window?.makeKeyAndVisible()
         UINavigationBar.appearance().tintColor = .black
         setupOrders()
@@ -24,14 +26,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window?.rootViewController = UINavigationController(rootViewController: ImagesViewController())
 //        window?.rootViewController = UINavigationController(rootViewController: HistoryViewController())
 //        window?.rootViewController = UINavigationController(rootViewController: his)
-        let tabVC = TabBarController()
-        window?.rootViewController = tabVC
+//        let tabVC = TabBarController()
+//        window?.rootViewController = tabVC
 //        window?.rootViewController = UINavigationController(rootViewController: SizeViewController())
 //        window?.rootViewController = UINavigationController(rootViewController: AccountViewController())
 //        window?.rootViewController = UINavigationController(rootViewController: ScrolController())
         
         //        window?.rootViewController = ViewController()
-//                window?.rootViewController = UINavigationController(rootViewController: PageViewController())
+                window?.rootViewController = UINavigationController(rootViewController: PageViewController())
 //                window?.rootViewController = UINavigationController(rootViewController: WelcomeViewController())
 
 //        let isOnboardingSeen = UserDefaults.standard.bool(forKey: "isOnboardingSeen")

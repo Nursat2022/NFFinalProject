@@ -8,7 +8,6 @@
 import UIKit
 
 class BottomSheetViewController: UIViewController {
-    weak var delegate: BottomSheetViewControllerDelegate?
     
     lazy var vectorImage: UIImageView = {
         let view = UIImageView()
@@ -28,10 +27,6 @@ class BottomSheetViewController: UIViewController {
         return view
     }()
     
-    override func viewWillDisappear(_ animated: Bool) {
-        delegate?.bottomSheetViewControllerDismissed()
-    }
-    
     let label: UILabel = {
         let label = UILabel()
         label.text = "Your order is succesfully placed. Thanks!"
@@ -50,8 +45,6 @@ class BottomSheetViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
-        view.addGestureRecognizer(panGesture)
         view.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
         [circleImage1, circleImage2, vectorImage, label, button].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -88,24 +81,6 @@ class BottomSheetViewController: UIViewController {
             label.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -h * CGFloat(24/844.0)),
         ])
     }
-    
-    @objc private func handlePanGesture(_ gestureRecognizer: UIPanGestureRecognizer) {
-           let translation = gestureRecognizer.translation(in: view)
-           let velocity = gestureRecognizer.velocity(in: view)
-           
-           if gestureRecognizer.state == .ended {
-               // Check if the swipe was downward and with sufficient velocity
-               if translation.y > 0 && velocity.y > 1000 {
-                   dismiss(animated: true) {
-                       self.delegate?.bottomSheetViewControllerDismissed()
-                   }
-               }
-           }
-       }
-}
-
-protocol BottomSheetViewControllerDelegate: AnyObject {
-    func bottomSheetViewControllerDismissed()
 }
 
 //extension BottomSheetViewController {

@@ -9,12 +9,7 @@ import UIKit
 
 var today = Date()
 
-class CartViewController: UIViewController, BottomSheetViewControllerDelegate {
-    func bottomSheetViewControllerDismissed() {
-        self.updateUI()
-        numberOfOrders += 1
-    }
-    
+class CartViewController: UIViewController {
     weak var delegate: CartViewControllerDelegate?
     
     override func viewDidAppear(_ animated: Bool) {
@@ -253,12 +248,21 @@ class CartViewController: UIViewController, BottomSheetViewControllerDelegate {
 
 extension CartViewController {
     func updateUI() {
-        VStackView.isHidden.toggle()
-        totalView.isHidden.toggle()
-        confirmButton.isHidden.toggle()
-        
-        vectorImage.isHidden.toggle()
-        emptyVStackView.isHidden.toggle()
+        if productCount == 0 {
+            emptyVStackView.isHidden = false
+            vectorImage.isHidden = false
+            
+            VStackView.isHidden = true
+            totalView.isHidden = true
+            confirmButton.isHidden = true
+        }
+        else {
+            confirmButton.isHidden = false
+            VStackView.isHidden = false
+            totalView.isHidden = false
+            emptyVStackView.isHidden = true
+            vectorImage.isHidden = true
+        }
     }
 }
 
@@ -266,11 +270,13 @@ extension CartViewController {
 extension CartViewController {
     @objc func confirm(_ sender: UIButton) {
         let vc = BottomSheetViewController()
-        vc.delegate = self
         vc.button.addAction(.init(handler: { [self] _ in
             vc.dismiss(animated: true)
+            updateUI()
             numberOfOrders += 1
         }), for: .touchUpInside)
+        
+        vc.isModalInPresentation = true
         
         let navVC = UINavigationController(rootViewController: vc)
         
@@ -281,6 +287,7 @@ extension CartViewController {
             orderHistory.append(orderData(number: numberOfOrders, date: "\(today.getDay())", numberOfItems: productCount, totalPrice: totalPrice, products: orders))
             orders = [:]
             delegate?.updateBadgeValue(value: orders.count == 0 ? nil : "\(orders.count)", color: .black)
+            productCount = 0
         })
     }
 }
