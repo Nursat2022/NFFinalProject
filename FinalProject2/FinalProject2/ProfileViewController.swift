@@ -7,6 +7,7 @@
 
 import UIKit
 import SafariServices
+import FirebaseAuth
 
 class ProfileViewController: UIViewController {
     let tableView = UITableView()
@@ -52,7 +53,24 @@ class ProfileViewController: UIViewController {
         let alertController = UIAlertController(title: nil, message: "Are you sure you want to sign out?", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .default)
         let confirmAction = UIAlertAction(title: "Confirm", style: .default) {_ in
-            
+            let loader = loader(viewController: self)
+            do {
+                try Auth.auth().signOut()
+                let transition = CATransition()
+                transition.duration = 0.3
+                transition.type = CATransitionType.push
+                transition.subtype = CATransitionSubtype.fromRight
+                
+                stopLoader(loader: loader)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    UIApplication.shared.keyWindow?.layer.add(transition, forKey: nil)
+                    UIApplication.shared.keyWindow?.rootViewController = UINavigationController(rootViewController: WelcomeViewController())
+                }
+            }
+            catch {
+                stopLoader(loader: loader)
+                print("error")
+            }
         }
         alertController.addAction(cancelAction)
         alertController.addAction(confirmAction)

@@ -41,6 +41,10 @@ class CatalogViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        APIManager.shared.getPost(collection: "sneakers", docName: "sneakers1") { doc in
+            guard doc == nil else { return }
+            sneakers.append(Sneakers(imageName: <#T##String#>, name: <#T##String#>, description: <#T##String#>, price: <#T##Int#>))
+        }
         setup()
     }
     

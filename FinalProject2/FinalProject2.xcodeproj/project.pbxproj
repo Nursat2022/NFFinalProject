@@ -29,6 +29,8 @@
 		C8AED93E2A3385C400ADD5D3 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = C8AED93D2A3385C400ADD5D3 /* FirebaseDatabase */; };
 		C8AED9402A3385C400ADD5D3 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = C8AED93F2A3385C400ADD5D3 /* FirebaseFirestore */; };
 		C8AED9422A3385C400ADD5D3 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = C8AED9412A3385C400ADD5D3 /* FirebaseStorage */; };
+		C8BF46832A348E7700D58DDC /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BF46822A348E7700D58DDC /* ApiManager.swift */; };
+		C8BF46852A348F3400D58DDC /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BF46842A348F3400D58DDC /* Document.swift */; };
 		C8D662B12A2EE2C50087CC97 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D662B02A2EE2C50087CC97 /* RegistrationViewController.swift */; };
 		C8D662B32A2EF3AF0087CC97 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D662B22A2EF3AF0087CC97 /* TextField.swift */; };
 		C8D662B52A2F05180087CC97 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D662B42A2F05180087CC97 /* CustomButton.swift */; };
@@ -57,6 +59,8 @@
 		C89810E32A2DEDAD00F22597 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		C89811072A2E52DC00F22597 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		C8AED9362A33826900ADD5D3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C8BF46822A348E7700D58DDC /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
+		C8BF46842A348F3400D58DDC /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		C8D662B02A2EE2C50087CC97 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		C8D662B22A2EF3AF0087CC97 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		C8D662B42A2F05180087CC97 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
@@ -124,6 +128,8 @@
 				C87EB1012A3189610093C5E9 /* OrderDetailViewController.swift */,
 				C87EB1032A31B8260093C5E9 /* Rosourses.swift */,
 				C87EB1052A31B8FC0093C5E9 /* TabBarViewController.swift */,
+				C8BF46822A348E7700D58DDC /* ApiManager.swift */,
+				C8BF46842A348F3400D58DDC /* Document.swift */,
 			);
 			path = FinalProject2;
 			sourceTree = "<group>";
@@ -213,12 +219,14 @@
 				C8D662B92A2F234D0087CC97 /* CatalogViewController.swift in Sources */,
 				C85F62F72A30793D002A24FA /* BottomSheetViewController.swift in Sources */,
 				C87EB1042A31B8260093C5E9 /* Rosourses.swift in Sources */,
+				C8BF46852A348F3400D58DDC /* Document.swift in Sources */,
 				C87EB1062A31B8FC0093C5E9 /* TabBarViewController.swift in Sources */,
 				C85F62FB2A30E096002A24FA /* AccountViewController.swift in Sources */,
 				C89810E42A2DEDAD00F22597 /* TestViewController.swift in Sources */,
 				C89810DC2A2D9E0300F22597 /* PageViewController.swift in Sources */,
 				C85F62F52A3032FD002A24FA /* Data.swift in Sources */,
 				C8D662B32A2EF3AF0087CC97 /* TextField.swift in Sources */,
+				C8BF46832A348E7700D58DDC /* ApiManager.swift in Sources */,
 				C8D662B52A2F05180087CC97 /* CustomButton.swift in Sources */,
 				C89811082A2E52DC00F22597 /* WelcomeViewController.swift in Sources */,
 				C8D662BD2A2F6D0D0087CC97 /* CartViewController.swift in Sources */,

@@ -37,8 +37,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //                window?.rootViewController = UINavigationController(rootViewController: WelcomeViewController())
 
         let isOnboardingSeen = UserDefaults.standard.bool(forKey: "isOnboardingSeen")
+        print(isOnboardingSeen)
         if isOnboardingSeen {
-            window?.rootViewController = UINavigationController(rootViewController: WelcomeViewController())
+            print("seen")
+            if let user = FirebaseAuth.Auth.auth().currentUser{
+                window?.rootViewController = TabBarController()
+            }
+            else {
+                window?.rootViewController = UINavigationController(rootViewController: WelcomeViewController())
+            }
         }
         else {
             window?.rootViewController = UINavigationController(rootViewController: PageViewController())

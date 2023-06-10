@@ -118,7 +118,7 @@ extension AuthViewController {
 //                UIView.setAnimationsEnabled(oldState)
 //            }, completion: nil)
             let transition = CATransition()
-            transition.duration = 0.1
+            transition.duration = 0.2
             transition.type = CATransitionType.push
             transition.subtype = CATransitionSubtype.fromRight
             
