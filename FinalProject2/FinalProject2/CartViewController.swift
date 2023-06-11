@@ -348,7 +348,7 @@ class CartView: UIView {
     init(sneakers: Sneakers) {
         self.sneakers = sneakers
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        imageView.image = UIImage(named: sneakers.imageName)
+//        imageView.image = UIImage(named: sneakers.imageName)
         nameLabel.text = sneakers.name
         descriptionLabel.text = sneakers.description
         priceLabel.text = "$\(sneakers.price)"

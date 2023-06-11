@@ -11,4 +11,5 @@ struct Document {
     var name: String
     var description: String
     var price: Int
+    var imageName: String
 }

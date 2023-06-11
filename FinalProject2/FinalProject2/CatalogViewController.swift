@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseFirestore
 
 extension CatalogViewController: productViewDelegate {
     func update() {
@@ -18,19 +20,6 @@ class CatalogViewController: UIViewController, UIScrollViewDelegate {
     let scrolView = UIScrollView()
     private let contentView = UIView()
     
-    lazy var stackViews: [UIStackView] = {
-        var stackViews = [UIStackView]()
-        for i in 0..<sneakers.count/2 {
-            stackViews.append(UIStackView())
-        }
-        stackViews.forEach {
-            $0.axis = .horizontal
-            $0.spacing = 10
-            $0.alignment = .center
-        }
-        return stackViews
-    }()
-    
     lazy var VStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -41,11 +30,13 @@ class CatalogViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        APIManager.shared.getPost(collection: "sneakers", docName: "sneakers1") { doc in
-            guard doc == nil else { return }
-            sneakers.append(Sneakers(imageName: <#T##String#>, name: <#T##String#>, description: <#T##String#>, price: <#T##Int#>))
+        let loader = loader(viewController: self)
+        view.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
+        self.getSneakers(num: 1) { newSneakers in
+            sneakers = newSneakers
+            stopLoader(loader: loader)
+            self.setup()
         }
-        setup()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -66,7 +57,10 @@ class CatalogViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    var stackViews = [UIStackView]()
+    
     func setup() {
+        setupStackViews()
         self.navigationItem.title = "Hello, Sneakerhead!"
         view.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
         
@@ -76,11 +70,6 @@ class CatalogViewController: UIViewController, UIScrollViewDelegate {
         
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.backgroundColor = view.backgroundColor
-
-        for i in 0..<sneakers.count/2 {
-            stackViews[i].addArrangedSubview(productView(sneakers: sneakers[i * 2]))
-            stackViews[i].addArrangedSubview(productView(sneakers: sneakers[i * 2 + 1]))
-        }
         
         stackViews.forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -111,9 +100,27 @@ class CatalogViewController: UIViewController, UIScrollViewDelegate {
     }
 }
 
+extension CatalogViewController {
+    func setupStackViews() {
+        for i in 0..<sneakers.count/2 + 1 {
+            stackViews.append(UIStackView())
+        }
+        stackViews.forEach {
+            $0.axis = .horizontal
+            $0.spacing = 10
+            $0.alignment = .center
+        }
+        
+        for i in 0..<sneakers.count/2 {
+            stackViews[i].addArrangedSubview(productView(sneakers: sneakers[i * 2]))
+            stackViews[i].addArrangedSubview(productView(sneakers: sneakers[i * 2 + 1]))
+        }
+    }
+}
+
 //MARK: SNEAKERS
 struct Sneakers: Hashable {
-    var imageName: String
+    var image: UIImage
     var name: String
     var description: String
     var price: Int
@@ -161,7 +168,7 @@ class productView: UIView {
         self.sneakers = sneakers
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         self.layer.cornerRadius = 4
-        imageView.image = UIImage(named: sneakers.imageName)
+        imageView.image = sneakers.image
         nameLabel.text = sneakers.name
         descriptionLabel.text = sneakers.description
         priceLabel.text = "$\(sneakers.price)"
@@ -220,15 +227,15 @@ class productView: UIView {
             nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 2),
             nameLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 4),
             nameLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -4),
-
+            
             descriptionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 2),
             descriptionLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 4),
             descriptionLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -4),
-
+            
             priceLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 2),
             priceLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 4),
             priceLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -4),
-
+            
             addButton.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 4),
             addButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -4),
             addButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8),
@@ -265,4 +272,24 @@ extension productView {
 
 protocol productViewDelegate: AnyObject {
     func update()
+}
+
+extension CatalogViewController {
+    func getSneakers(num: Int, completion: @escaping ([Sneakers]) -> Void) {
+        var newSneakers = [Sneakers]()
+        APIManager.shared.getAllPosts(collection: "sneakers") { documents in
+            guard documents != nil else {
+                print("documents error")
+                return }
+            for doc in documents! {
+                APIManager.shared.getImageByName(imageName: doc.imageName) { image in
+                    guard image != nil else { return }
+                    newSneakers.append(Sneakers(image: image!, name: doc.name, description: doc.description, price: doc.price))
+                    if newSneakers.count == documents?.count {
+                        completion(newSneakers)
+                    }
+                }
+            }
+        }
+    }
 }
