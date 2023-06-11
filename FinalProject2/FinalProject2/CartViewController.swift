@@ -471,5 +471,5 @@ func getNameBySneakers(_ sneakers: Sneakers) -> String {
             return key
         }
     }
-    return "def"
+    return ""
 }

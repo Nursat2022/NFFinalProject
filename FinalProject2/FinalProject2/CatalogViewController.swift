@@ -11,7 +11,6 @@ import FirebaseFirestore
 
 extension CatalogViewController: productViewDelegate {
     func update() {
-        print("updating")
         delegate?.updateBadgeValue(value: orders.count == 0 ? nil : "\(orders.count)", color: .gray)
     }
 }
@@ -40,6 +39,11 @@ class CatalogViewController: UIViewController, UIScrollViewDelegate {
                 self.update()
                 self.setup()
                 print(orders.count)
+            }
+            for i in 1...numberOfOrders {
+                APIManager.shared.getHistory(docName: "order\(i)") { orderData in
+                    orderHistory = [orderData]
+                }
             }
         }
     }

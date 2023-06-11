@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
 class AccountViewController: UIViewController {
     
@@ -24,7 +26,7 @@ class AccountViewController: UIViewController {
     
     let usernameField: TextField = {
         let textField = TextField()
-        textField.text = data["username"]
+        textField.text = getUserName()
         return textField
     }()
     
@@ -109,4 +111,12 @@ extension AccountViewController {
             wrongPasswordError.isHidden = false
         }
     }
+}
+
+func getUserName() -> String {
+    let email = Auth.auth().currentUser?.email!
+    let atIndex = email!.firstIndex(of: "@")
+    let username = email![..<atIndex!]
+    let usernameString = String(username)
+    return usernameString
 }

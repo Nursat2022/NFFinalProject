@@ -23,24 +23,24 @@ class APIManager {
         return db
     }
     
-//    func getPost(collection: String, docName: String, completion: @escaping (Document?) -> Void) {
-//        let db = APIManager.shared.configureDB()
-//        let docRef = db.document("\(collection)/\(docName)")
-//        docRef.getDocument { snapshot, error in
-//            guard let data = snapshot?.data(), error == nil else {
-//                completion(nil)
-//                return }
-//            guard let name = data["name"], error == nil else {
-//                print("error name")
-//                completion(nil)
-//                return }
-//            guard let description = data["description"], error == nil else {
-//                completion(nil)
-//                return }
-//            guard let price = data["price"], error == nil else { return }
-//            completion(Document(name: name as! String, description: description as! String, price: price as! Int))
-//        }
-//    }
+    //    func getPost(collection: String, docName: String, completion: @escaping (Document?) -> Void) {
+    //        let db = APIManager.shared.configureDB()
+    //        let docRef = db.document("\(collection)/\(docName)")
+    //        docRef.getDocument { snapshot, error in
+    //            guard let data = snapshot?.data(), error == nil else {
+    //                completion(nil)
+    //                return }
+    //            guard let name = data["name"], error == nil else {
+    //                print("error name")
+    //                completion(nil)
+    //                return }
+    //            guard let description = data["description"], error == nil else {
+    //                completion(nil)
+    //                return }
+    //            guard let price = data["price"], error == nil else { return }
+    //            completion(Document(name: name as! String, description: description as! String, price: price as! Int))
+    //        }
+    //    }
     
     func getAllPosts(collection: String, completion: @escaping ([Document]?) -> Void) {
         let db = APIManager.shared.configureDB()
@@ -60,42 +60,41 @@ class APIManager {
                 if let name = data["name"] as? String,
                    let description = data["description"] as? String,
                    let price = data["price"] as? Int,
-                    let imageName = data["imageName"] as? String {
+                   let imageName = data["imageName"] as? String {
                     let document = Document(name: name, description: description, price: price, imageName: imageName)
                     allDocuments.append(document)
                 }
             }
-            
             completion(allDocuments)
         }
     }
     
     func getPost(collection: String, docName: String, completion: @escaping ([String: Int]) -> Void) {
-            let db = APIManager.shared.configureDB()
-            let docRef = db.document("\(collection)/\(docName)")
-            docRef.getDocument { snapshot, error in
-                guard let data = snapshot?.data(), error == nil else {
-                    print("error")
-                    return }
-                guard let name = data["name"], error == nil else {
-                    print("error name")
-                    return }
-                guard let count = data["count"], error == nil else {
-                    print("error count")
-                    return }
-                print(name)
-                print(count)
-                completion([name as! String: count as! Int])
-            }
+        let db = APIManager.shared.configureDB()
+        let docRef = db.document("\(collection)/\(docName)")
+        docRef.getDocument { snapshot, error in
+            guard let data = snapshot?.data(), error == nil else {
+                print("error")
+                return }
+            guard let name = data["name"], error == nil else {
+                print("error name")
+                return }
+            guard let count = data["count"], error == nil else {
+                print("error count")
+                return }
+            print(name)
+            print(count)
+            completion([name as! String: count as! Int])
         }
+    }
     
     func getImage(picName: String, completion: @escaping (UIImage) -> Void) {
         let storage = Storage.storage()
         let reference = storage.reference()
         let pathRef = reference.child("pictures")
-
+        
         var image: UIImage = UIImage(named: "sneakers1")!
-
+        
         let fireRef = pathRef.child(picName + ".png")
         fireRef.getData(maxSize: 1920 * 1920) { data, error in
             guard error == nil else {
@@ -182,13 +181,13 @@ class APIManager {
         }
     }
     
-//    func saveData(text: String) {
-//        let db = APIManager.shared.configureDB()
-//        let docRef = db.document("ios/example")
-//        docRef.getDocument { snapshot, error in
-//            guard let
-//        }
-//    }
+    //    func saveData(text: String) {
+    //        let db = APIManager.shared.configureDB()
+    //        let docRef = db.document("ios/example")
+    //        docRef.getDocument { snapshot, error in
+    //            guard let
+    //        }
+    //    }
     
     func writeData(sneakersName: String, count: Int) {
         let db = configureDB()
@@ -197,13 +196,13 @@ class APIManager {
         docRef.setData(["name": sneakersName, "count": count])
     }
     
-//    func getDocuments() {
-//        let db = configureDB()
-//        let docRef = db.document("ios/example")
-//        docRef.getDocument { snapshot, error in
-//            guard let data = snapshot?.data(), error == nil else { return }
-//        }
-//    }
+    //    func getDocuments() {
+    //        let db = configureDB()
+    //        let docRef = db.document("ios/example")
+    //        docRef.getDocument { snapshot, error in
+    //            guard let data = snapshot?.data(), error == nil else { return }
+    //        }
+    //    }
     
     func deleteData(document: String) {
         let db = configureDB()
@@ -211,5 +210,37 @@ class APIManager {
             db.collection(user.email!).document(document).delete()
         }
     }
-
+    
+    func getHistory(docName: String, completion: @escaping (orderData) -> Void) {
+        let db = configureDB()
+        let email = Auth.auth().currentUser!.email!
+        let docRef = db.document("\(email)-history/\(docName)")
+        docRef.getDocument { snapshot, error in
+            guard let data1 = snapshot?.data(), error == nil else {
+                print("error date")
+                return }
+            guard let date = data1["date"], error == nil else {
+                print("error his")
+                return }
+            guard let number = data1["number"], error == nil else {
+                print("error his")
+                return }
+            guard let numberOfItems = data1["numberOfItems"], error == nil else { return }
+            guard let totalPrice = data1["totalPrice"], error == nil else { return }
+            
+            let sneakRef = db.document("\(email)-history/\(docName)-sneakers")
+            sneakRef.getDocument { snapshot, error in
+                guard let data2 = snapshot?.data(), error == nil else {
+                    print("error date")
+                    return }
+//                let dict = data2 as! [[String: Int]]
+                var newOrders = [Sneakers: Int]()
+                for (key, value) in data2 {
+                    let dict = value as! [String: Any]
+                    newOrders[sneakersByImageName[key]!] = dict["count"] as! Int
+                }
+                completion(orderData(number: number as! Int, date: date as! String, numberOfItems: numberOfItems as! Int, totalPrice: totalPrice as! Int, products: newOrders))
+            }
+        }
+    }
 }
