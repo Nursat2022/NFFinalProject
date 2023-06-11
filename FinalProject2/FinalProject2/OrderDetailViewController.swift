@@ -73,7 +73,7 @@ extension OrderDetailViewController: UITableViewDelegate, UITableViewDataSource 
         default:
             let products = Array(order.products.keys)
             let cell = tableView.dequeueReusableCell(withIdentifier: "productCell", for: indexPath) as! cellForProduct
-//            cell.image.image = UIImage(named: products[indexPath.section - 2].imageName)
+            cell.image.image = products[indexPath.section - 2].image
             cell.name.text = products[indexPath.section - 2].name
             cell.descriptionLabel.text = products[indexPath.section - 2].description
             cell.itemPriceLabel.text = "\(order.products[products[indexPath.section - 2]]!) • $\(products[indexPath.section - 2].price)"

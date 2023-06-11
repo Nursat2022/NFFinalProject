@@ -56,6 +56,7 @@ class ProfileViewController: UIViewController {
             let loader = loader(viewController: self)
             do {
                 try Auth.auth().signOut()
+                orders = [:]
                 let transition = CATransition()
                 transition.duration = 0.3
                 transition.type = CATransitionType.push

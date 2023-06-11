@@ -11,6 +11,7 @@ import FirebaseFirestore
 
 extension CatalogViewController: productViewDelegate {
     func update() {
+        print("updating")
         delegate?.updateBadgeValue(value: orders.count == 0 ? nil : "\(orders.count)", color: .gray)
     }
 }
@@ -34,8 +35,12 @@ class CatalogViewController: UIViewController, UIScrollViewDelegate {
         view.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
         self.getSneakers(num: 1) { newSneakers in
             sneakers = newSneakers
-            stopLoader(loader: loader)
-            self.setup()
+            self.getOrders {
+                stopLoader(loader: loader)
+                self.update()
+                self.setup()
+                print(orders.count)
+            }
         }
     }
     
@@ -47,19 +52,22 @@ class CatalogViewController: UIViewController, UIScrollViewDelegate {
             }
         }
         
-        for i in 0..<sneakers.count/2 {
-            let product1 = productView(sneakers: sneakers[i * 2])
-            let product2 = productView(sneakers: sneakers[i * 2 + 1])
-            product1.delegate = self
-            product2.delegate = self
-            stackViews[i].addArrangedSubview(product1)
-            stackViews[i].addArrangedSubview(product2)
+        if !stackViews.isEmpty {
+            for i in 0..<sneakers.count/2 {
+                let product1 = productView(sneakers: sneakers[i * 2])
+                let product2 = productView(sneakers: sneakers[i * 2 + 1])
+                product1.delegate = self
+                product2.delegate = self
+                stackViews[i].addArrangedSubview(product1)
+                stackViews[i].addArrangedSubview(product2)
+            }
         }
     }
     
     var stackViews = [UIStackView]()
     
     func setup() {
+//        APIManager.shared.writeData(sneakersName: "sneakers5", count: 5)
         setupStackViews()
         self.navigationItem.title = "Hello, Sneakerhead!"
         view.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
@@ -252,6 +260,7 @@ extension productView {
     @objc func addButtonTapped(_ sender: UIButton) {
         if addButton.titleLabel?.text == "Add to cart" {
             orders[sneakers] = 1
+            APIManager.shared.writeData(sneakersName: getNameBySneakers(sneakers), count: orders[sneakers]!)
             delegate?.update()
         }
         else {
@@ -259,9 +268,11 @@ extension productView {
                 if numberOfOrders == 1 {
                     orders[sneakers] = nil
                     delegate?.update()
+                    APIManager.shared.deleteData(document: getNameBySneakers(sneakers))
                 }
                 else {
                     orders[sneakers] = numberOfOrders - 1
+                    APIManager.shared.writeData(sneakersName: getNameBySneakers(sneakers), count: orders[sneakers]!)
                 }
             }
         }
@@ -284,7 +295,9 @@ extension CatalogViewController {
             for doc in documents! {
                 APIManager.shared.getImageByName(imageName: doc.imageName) { image in
                     guard image != nil else { return }
-                    newSneakers.append(Sneakers(image: image!, name: doc.name, description: doc.description, price: doc.price))
+                    let sneakers = Sneakers(image: image!, name: doc.name, description: doc.description, price: doc.price)
+                    sneakersByImageName[doc.imageName] = sneakers
+                    newSneakers.append(sneakers)
                     if newSneakers.count == documents?.count {
                         completion(newSneakers)
                     }
@@ -292,4 +305,17 @@ extension CatalogViewController {
             }
         }
     }
+    
+    func getOrders(completion: @escaping () -> Void) {
+        if let user = Auth.auth().currentUser {
+            print(user.email)
+        }
+        APIManager.shared.getAllOrders(collection: Auth.auth().currentUser!.email!) { order in
+            for key in order.keys {
+                orders[sneakersByImageName[key]!] = order[key]
+            }
+            completion()
+        }
+    }
 }
+

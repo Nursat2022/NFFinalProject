@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         window?.makeKeyAndVisible()
         UINavigationBar.appearance().tintColor = .black
-        setupOrders()
+//        setupOrders()
 //        window?.rootViewController = UINavigationController(rootViewController: CatalogViewController())
 //        window?.rootViewController = UINavigationController(rootViewController: CartViewController())
 //        window?.rootViewController = UINavigationController(rootViewController: ProfileViewController())

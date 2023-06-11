@@ -348,7 +348,7 @@ class CartView: UIView {
     init(sneakers: Sneakers) {
         self.sneakers = sneakers
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-//        imageView.image = UIImage(named: sneakers.imageName)
+        imageView.image = sneakers.image
         nameLabel.text = sneakers.name
         descriptionLabel.text = sneakers.description
         priceLabel.text = "$\(sneakers.price)"
@@ -422,6 +422,7 @@ extension CartView {
         orders[sneakers]! -= 1
         if orders[self.sneakers]! == 0 {
             orders[self.sneakers] = nil
+            APIManager.shared.deleteData(document: getNameBySneakers(sneakers))
             self.removeFromSuperview()
         }
         else {
@@ -450,8 +451,10 @@ protocol CartViewControllerDelegate: AnyObject {
 extension CartViewController: CartViewDelegate {
     func cartViewDidUpdateProductCount(_ cartView: CartView, count: Int) {
         productCount += count
+        if let count = orders[cartView.sneakers] {
+            APIManager.shared.writeData(sneakersName: getNameBySneakers(cartView.sneakers), count: count)
+        }
         totalLabel.text = "\(productCount) items: Total (Including Delivery)"
-        
         totalPrice += count * cartView.sneakers.price
         priceLabel.text = "$\(totalPrice)"
         
@@ -460,4 +463,13 @@ extension CartViewController: CartViewDelegate {
         }
         delegate?.updateBadgeValue(value: orders.count == 0 ? nil : "\(orders.count)", color: .black)
     }
+}
+
+func getNameBySneakers(_ sneakers: Sneakers) -> String {
+    for (key, value) in sneakersByImageName {
+        if value == sneakers {
+            return key
+        }
+    }
+    return "def"
 }

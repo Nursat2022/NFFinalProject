@@ -7,6 +7,18 @@
 
 import Foundation
 
+//var orders: [Sneakers: Int] {
+//    get {
+//        if sneakers.count != 0 {
+//            APIManager.shared.getPost(collection: "orders", docName: "nurs@gmail.com") { order in
+//                orders[sneakersByImageName[order.keys.first!]!] = order.values.first
+//            }
+//
+//        }
+//        return [:]
+//    }
+//}
+
 var orders: [Sneakers: Int] = [:]
 
 //let sneakers = [Sneakers(imageName: "sneakers1", name: "Dolce & Gabbana", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers2", name: "Off-White", description: "Кроссовки Off-Court 3.0", price: 551), Sneakers(imageName: "sneakers3", name: "Jordan", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers4", name: "Jordan", description: "Кеды с принтом граффити", price: 1251), Sneakers(imageName: "sneakers5", name: "Balenciaga", description: "кроссовки Runner", price: 945), Sneakers(imageName: "sneakers6", name: "Lanvin", description: "кроссовки Curb на шнуровке", price: 700), Sneakers(imageName: "sneakers7", name: "Off-White", description: "кроссовки Odsy-1000", price: 900), Sneakers(imageName: "sneakers8", name: "Adidas YEEZY", description: "Кроссовки YEEZY 700 V3 Copper Fade", price: 255), Sneakers(imageName: "sneakers9", name: "Jordan", description: "кроссовки Jordan Max Aura 4", price: 543), Sneakers(imageName: "sneakers10", name: "Jordan", description: "кроссовки Air Jordan 1 Retro", price: 350), Sneakers(imageName: "sneakers11", name: "Off-White", description: "кроссовки с логотипом Arrows", price: 405), Sneakers(imageName: "sneakers12", name: "Maison Mihara Yasuhiro", description: "кроссовки с контрастной шнуровкой", price: 700)]
@@ -33,6 +45,7 @@ struct orderData {
 
 var orderHistory: [orderData] = []
 
+var sneakersByImageName = [String: Sneakers]()
 
 func setupOrders() {
 //    for sneaker in sneakers {
