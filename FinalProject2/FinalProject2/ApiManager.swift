@@ -216,31 +216,45 @@ class APIManager {
         let email = Auth.auth().currentUser!.email!
         let docRef = db.document("\(email)-history/\(docName)")
         docRef.getDocument { snapshot, error in
-            guard let data1 = snapshot?.data(), error == nil else {
-                print("error date")
-                return }
-            guard let date = data1["date"], error == nil else {
-                print("error his")
-                return }
-            guard let number = data1["number"], error == nil else {
-                print("error his")
-                return }
+            guard let data1 = snapshot?.data(), error == nil else { return }
+            guard let date = data1["date"], error == nil else { return }
+            guard let number = data1["number"], error == nil else { return }
             guard let numberOfItems = data1["numberOfItems"], error == nil else { return }
             guard let totalPrice = data1["totalPrice"], error == nil else { return }
             
             let sneakRef = db.document("\(email)-history/\(docName)-sneakers")
             sneakRef.getDocument { snapshot, error in
-                guard let data2 = snapshot?.data(), error == nil else {
-                    print("error date")
-                    return }
-//                let dict = data2 as! [[String: Int]]
+                guard let data2 = snapshot?.data(), error == nil else { return }
                 var newOrders = [Sneakers: Int]()
                 for (key, value) in data2 {
-                    let dict = value as! [String: Any]
+                    guard let dict = value as? [String: Any] else { return }
                     newOrders[sneakersByImageName[key]!] = dict["count"] as! Int
                 }
                 completion(orderData(number: number as! Int, date: date as! String, numberOfItems: numberOfItems as! Int, totalPrice: totalPrice as! Int, products: newOrders))
             }
+        }
+    }
+    
+    func writeHistorySneakers(name: String, count: Int, order: Int) {
+        let db = configureDB()
+        let email = Auth.auth().currentUser!.email!
+        let docRef = db.document("\(email)-history/order\(order)-sneakers")
+        let dict: [String: Any] = ["name": name, "count": count]
+        docRef.updateData([name: dict])
+    }
+    
+    func writeHistory(number: Int, numberOfItems: Int, date: String, totalPrice: Int, products: [Sneakers: Int]) {
+        let db = configureDB()
+        let email = Auth.auth().currentUser!.email!
+        let docRefData = db.document("\(email)-history/order\(number)")
+        let docRefProducts = db.document("\(email)-history/order\(number)-sneakers")
+        
+        docRefData.setData(["number": number, "numberOfItems": numberOfItems, "totalPrice": totalPrice, "date": date])
+        
+        for sneakers in products.keys {
+            let name = getNameBySneakers(sneakers)
+            let dict: [String: Any] = ["name": name, "count": products[sneakers]]
+            products.keys.first == sneakers ? docRefProducts.setData([name:dict]) : docRefProducts.updateData([name: dict])
         }
     }
 }

@@ -41,8 +41,9 @@ class CatalogViewController: UIViewController, UIScrollViewDelegate {
                 print(orders.count)
             }
             for i in 1...numberOfOrders {
+                print("i = \(i)")
                 APIManager.shared.getHistory(docName: "order\(i)") { orderData in
-                    orderHistory = [orderData]
+                    orderHistory.append(orderData)
                 }
             }
         }

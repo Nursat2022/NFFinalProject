@@ -285,6 +285,7 @@ extension CartViewController {
         }
         navigationController?.present(navVC, animated: true, completion: { [self] in
             orderHistory.append(orderData(number: numberOfOrders, date: "\(today.getDay())", numberOfItems: productCount, totalPrice: totalPrice, products: orders))
+            APIManager.shared.writeHistory(number: numberOfOrders, numberOfItems: productCount, date: "\(today.getDay())", totalPrice: totalPrice, products: orders)
             orders = [:]
             delegate?.updateBadgeValue(value: orders.count == 0 ? nil : "\(orders.count)", color: .black)
             productCount = 0
