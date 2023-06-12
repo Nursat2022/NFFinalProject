@@ -57,6 +57,8 @@ class ProfileViewController: UIViewController {
             do {
                 try Auth.auth().signOut()
                 orders = [:]
+                orderHistory = []
+                numberOfOrders = 0
                 let transition = CATransition()
                 transition.duration = 0.3
                 transition.type = CATransitionType.push

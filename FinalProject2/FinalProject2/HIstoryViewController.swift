@@ -12,6 +12,7 @@ class HistoryViewController: UIViewController {
     var tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), style: .grouped)
 
     override func viewDidLoad() {
+        orderHistory.sort { $0.number < $1.number }
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
         tableView.delegate = self
@@ -26,7 +27,7 @@ class HistoryViewController: UIViewController {
         let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
         self.navigationController?.navigationBar.barTintColor = .black
-        self.title = "Order History"
+        self.navigationItem.title = "Order History"
         
         NSLayoutConstraint.activate([
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),

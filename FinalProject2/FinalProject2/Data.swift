@@ -25,7 +25,7 @@ var orders: [Sneakers: Int] = [:]
 var sneakers: [Sneakers] = []
 var shoeSize = 41.5
 
-var numberOfOrders = 2
+var numberOfOrders = 0
 
 var data = ["username": "Nursat", "password": "hello"]
 

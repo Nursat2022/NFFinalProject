@@ -8,7 +8,7 @@
 import UIKit
 import FirebaseAuth
 
-class AuthViewController: UIViewController {
+class AuthViewController: UIViewController, UITextFieldDelegate {
     
     let stateLabel: UILabel = {
         let label = UILabel()
@@ -23,6 +23,16 @@ class AuthViewController: UIViewController {
         textField.placeholder = "Username"
         return textField
     }()
+    
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        textField.resignFirstResponder()
+//        return true
+//    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
     
     let passwordField: TextField = {
         let textField = TextField()

@@ -211,6 +211,30 @@ class APIManager {
         }
     }
     
+    func clearOrders() {
+        let db = configureDB()
+        let collectionRef = db.collection((Auth.auth().currentUser?.email)!)
+        collectionRef.getDocuments { snapshot, error in
+            guard let documents = snapshot?.documents, error == nil else {return}
+            for document in documents {
+                document.reference.delete()
+            }
+        }
+    }
+    
+    func getNumberOfOrders(completion: @escaping (Int) -> ()) {
+        let db = configureDB()
+        let email = Auth.auth().currentUser!.email!
+        let docRef = db.document("orders/\(email)")
+        docRef.getDocument { snapshot, error in
+            guard let data = snapshot?.data(), error == nil else { return }
+            guard let orders = data["numberOfOrders"] as? Int else { return }
+            numberOfOrders = orders
+            print("orders: \(numberOfOrders)")
+            completion(numberOfOrders)
+        }
+    }
+    
     func getHistory(docName: String, completion: @escaping (orderData) -> Void) {
         let db = configureDB()
         let email = Auth.auth().currentUser!.email!
@@ -256,5 +280,12 @@ class APIManager {
             let dict: [String: Any] = ["name": name, "count": products[sneakers]]
             products.keys.first == sneakers ? docRefProducts.setData([name:dict]) : docRefProducts.updateData([name: dict])
         }
+    }
+    
+    func setNumberOfOrders() {
+        let db = configureDB()
+        let email = Auth.auth().currentUser!.email!
+        let docRef = db.document("orders/\(email)")
+        docRef.setData(["numberOfOrders": numberOfOrders])
     }
 }

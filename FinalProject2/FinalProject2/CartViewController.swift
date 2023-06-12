@@ -273,7 +273,6 @@ extension CartViewController {
         vc.button.addAction(.init(handler: { [self] _ in
             vc.dismiss(animated: true)
             updateUI()
-            numberOfOrders += 1
         }), for: .touchUpInside)
         
         vc.isModalInPresentation = true
@@ -284,8 +283,11 @@ extension CartViewController {
             sheet.detents = [.medium()]
         }
         navigationController?.present(navVC, animated: true, completion: { [self] in
+            numberOfOrders += 1
+            APIManager.shared.setNumberOfOrders()
             orderHistory.append(orderData(number: numberOfOrders, date: "\(today.getDay())", numberOfItems: productCount, totalPrice: totalPrice, products: orders))
             APIManager.shared.writeHistory(number: numberOfOrders, numberOfItems: productCount, date: "\(today.getDay())", totalPrice: totalPrice, products: orders)
+            APIManager.shared.clearOrders()
             orders = [:]
             delegate?.updateBadgeValue(value: orders.count == 0 ? nil : "\(orders.count)", color: .black)
             productCount = 0

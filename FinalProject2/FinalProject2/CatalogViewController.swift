@@ -40,10 +40,12 @@ class CatalogViewController: UIViewController, UIScrollViewDelegate {
                 self.setup()
                 print(orders.count)
             }
-            for i in 1...numberOfOrders {
-                print("i = \(i)")
-                APIManager.shared.getHistory(docName: "order\(i)") { orderData in
-                    orderHistory.append(orderData)
+            APIManager.shared.getNumberOfOrders { numberOfOrders in
+                for i in 1..<numberOfOrders + 1 {
+                    print("i = \(i)")
+                    APIManager.shared.getHistory(docName: "order\(i)") { orderData in
+                        orderHistory.append(orderData)
+                    }
                 }
             }
         }
@@ -72,7 +74,6 @@ class CatalogViewController: UIViewController, UIScrollViewDelegate {
     var stackViews = [UIStackView]()
     
     func setup() {
-//        APIManager.shared.writeData(sneakersName: "sneakers5", count: 5)
         setupStackViews()
         self.navigationItem.title = "Hello, Sneakerhead!"
         view.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
