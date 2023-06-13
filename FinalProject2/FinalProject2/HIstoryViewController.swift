@@ -89,7 +89,6 @@ class OrderCell: UITableViewCell {
     
     let orderLabel: UILabel = {
         let label = UILabel()
-//        label.text = "Order #123"
         label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         label.textColor = .black
         return label
@@ -97,7 +96,6 @@ class OrderCell: UITableViewCell {
     
     let dateLabel: UILabel = {
         let label = UILabel()
-//        label.text = "24.12.2021"
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = .gray
         return label
@@ -107,7 +105,6 @@ class OrderCell: UITableViewCell {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
-//        label.text = "4 items • $1234"
         return label
     }()
     
@@ -117,8 +114,6 @@ class OrderCell: UITableViewCell {
             $0.translatesAutoresizingMaskIntoConstraints = false
             addSubview($0)
         }
-//        addSubview(viewForImages)
-//        addSubview(orderLabel)
     
         NSLayoutConstraint.activate([
             viewForImages.leftAnchor.constraint(equalTo: leftAnchor),

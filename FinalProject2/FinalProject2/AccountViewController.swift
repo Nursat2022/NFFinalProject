@@ -9,11 +9,10 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-class AccountViewController: UIViewController {
+class AccountViewController: UIViewController, UITextFieldDelegate {
     
-    let wrongPasswordError: UILabel = {
+    let stateLabel: UILabel = {
         let label = UILabel()
-        label.text = "Wrong password"
         label.textColor = .red
         return label
     }()
@@ -27,6 +26,7 @@ class AccountViewController: UIViewController {
     let usernameField: TextField = {
         let textField = TextField()
         textField.text = getUserName()
+        textField.isUserInteractionEnabled = false
         return textField
     }()
     
@@ -36,7 +36,7 @@ class AccountViewController: UIViewController {
         return textField
     }()
     
-    let repeatField: TextField = {
+    let newPassword: TextField = {
         let textField = TextField()
         textField.placeholder = "new password"
         return textField
@@ -50,6 +50,11 @@ class AccountViewController: UIViewController {
         return stackView
     }()
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -57,12 +62,14 @@ class AccountViewController: UIViewController {
     
     func setup() {
         view.backgroundColor = .white
-        
-        [usernameField, oldPassword, repeatField, stackView, wrongPasswordError].forEach {
+        [usernameField, oldPassword, newPassword].forEach {
+            $0.delegate = self
+        }
+        [usernameField, oldPassword, newPassword, stackView, stateLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
-        wrongPasswordError.isHidden = true
+        stateLabel.isHidden = true
         
         let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
@@ -73,11 +80,11 @@ class AccountViewController: UIViewController {
         
         stackView.addArrangedSubview(usernameField)
         stackView.addArrangedSubview(oldPassword)
-        stackView.addArrangedSubview(repeatField)
+        stackView.addArrangedSubview(newPassword)
         
         view.addSubview(stackView)
         view.addSubview(SaveButton)
-        view.addSubview(wrongPasswordError)
+        view.addSubview(stateLabel)
         
         NSLayoutConstraint.activate([
             usernameField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
@@ -88,9 +95,9 @@ class AccountViewController: UIViewController {
             oldPassword.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
             oldPassword.heightAnchor.constraint(equalToConstant: 48),
             
-            repeatField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
-            repeatField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
-            repeatField.heightAnchor.constraint(equalToConstant: 48),
+            newPassword.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
+            newPassword.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+            newPassword.heightAnchor.constraint(equalToConstant: 48),
             
             stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: h * CGFloat(104/844.0)),
             
@@ -99,18 +106,101 @@ class AccountViewController: UIViewController {
             SaveButton.heightAnchor.constraint(equalToConstant: 54),
             SaveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -h * CGFloat(100/844.0)),
             
-            wrongPasswordError.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            wrongPasswordError.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            stateLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stateLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
     }
 }
 
 extension AccountViewController {
     @objc func submit(_ sender: UIButton) {
-        if oldPassword.text == "Hello" {
-            wrongPasswordError.isHidden = false
+        stateLabel.isHidden = false
+        guard let oldPassword = oldPassword.text, !oldPassword.isEmpty else {
+            stateLabel.text = "some fields are empty"
+            stateLabel.textColor = .red
+            return
+        }
+        guard let newPassword = newPassword.text, !newPassword.isEmpty else {
+            stateLabel.text = "some fields are empty"
+            stateLabel.textColor = .red
+            return
+        }
+
+        guard let user = Auth.auth().currentUser else { return }
+        let credential = EmailAuthProvider.credential(withEmail: user.email!, password: oldPassword)
+        user.reauthenticate(with: credential) { result, error in
+            let loader = loader(viewController: self)
+            guard error == nil else {
+                self.stateLabel.text = "wrong old password"
+                self.stateLabel.textColor = .red
+                stopLoader(loader: loader)
+                return
+            }
+            user.updatePassword(to: newPassword) { error in
+                guard error == nil else {
+                    self.stateLabel.text = "error"
+                    self.stateLabel.textColor = .red
+                    stopLoader(loader: loader)
+                    return
+                }
+                self.stateLabel.text = "changed successfully"
+                self.stateLabel.textColor = .green
+                stopLoader(loader: loader)
+            }
         }
     }
+//    @objc func submit(_ sender: UIButton) {
+//        stateLabel.isHidden = false
+//        guard let user = Auth.auth().currentUser else { return }
+//
+//        guard let newUsername = self.usernameField.text, !newUsername.isEmpty else {
+//            self.stateLabel.text = "enter valid email"
+//            self.stateLabel.textColor = .red
+//            return
+//        }
+//        if newUsername != user.email! {
+//            if newPassword.text!.isEmpty && oldPassword.text!.isEmpty {
+//                let loader = loader(viewController: self)
+//                user.updateEmail(to: newUsername + "@gmail.com") { error in
+//                    guard error != nil else {
+//                        self.stateLabel.text = "user with this email already exists"
+//                        return
+//                    }
+//                    self.stateLabel.text = "Changed successfully"
+//                    self.stateLabel.textColor = .green
+//                    stopLoader(loader: loader)
+//                }
+//            }
+//        }
+//
+//        guard let oldPassword = oldPassword.text, !oldPassword.isEmpty else {
+//            stateLabel.text = "some fields are empty"
+//            stateLabel.textColor = .red
+//            return
+//        }
+//        guard let newPassword = newPassword.text, !newPassword.isEmpty else {
+//            stateLabel.text = "some fields are empty"
+//            stateLabel.textColor = .red
+//            return
+//        }
+//
+//        let credential = EmailAuthProvider.credential(withEmail: user.email!, password: oldPassword)
+//        user.reauthenticate(with: credential) { result, error in
+//            let loader = loader(viewController: self)
+//            guard error == nil else {
+//                self.stateLabel.text = "wrong old password"
+//                self.stateLabel.textColor = .red
+//                stopLoader(loader: loader)
+//                return
+//            }
+//            user.updatePassword(to: newPassword) { error in
+//                guard error == nil else { return }
+//                self.stateLabel.text = "Changed successfully"
+//                self.stateLabel.textColor = .green
+//                stopLoader(loader: loader)
+//            }
+//        }
+//    }
 }
 
 func getUserName() -> String {

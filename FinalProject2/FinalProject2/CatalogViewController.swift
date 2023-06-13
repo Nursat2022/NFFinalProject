@@ -36,8 +36,8 @@ class CatalogViewController: UIViewController, UIScrollViewDelegate {
             sneakers = newSneakers
             self.getOrders {
                 stopLoader(loader: loader)
-                self.update()
                 self.setup()
+                self.update()
                 print(orders.count)
             }
             APIManager.shared.getNumberOfOrders { numberOfOrders in
@@ -126,8 +126,12 @@ extension CatalogViewController {
         }
         
         for i in 0..<sneakers.count/2 {
-            stackViews[i].addArrangedSubview(productView(sneakers: sneakers[i * 2]))
-            stackViews[i].addArrangedSubview(productView(sneakers: sneakers[i * 2 + 1]))
+            let product1 = productView(sneakers: sneakers[i * 2])
+            let product2 = productView(sneakers: sneakers[i * 2 + 1])
+            product1.delegate = self
+            product2.delegate = self
+            stackViews[i].addArrangedSubview(product1)
+            stackViews[i].addArrangedSubview(product2)
         }
     }
 }

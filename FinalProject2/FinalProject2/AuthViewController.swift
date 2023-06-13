@@ -24,14 +24,9 @@ class AuthViewController: UIViewController, UITextFieldDelegate {
         return textField
     }()
     
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        textField.resignFirstResponder()
-//        return true
-//    }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+        self.view.endEditing(true)
+        return false
     }
     
     let passwordField: TextField = {
@@ -61,6 +56,9 @@ class AuthViewController: UIViewController, UITextFieldDelegate {
     }()
 
     func setup() {
+        [usernameField, passwordField].forEach {
+            $0.delegate = self
+        }
         view.backgroundColor = .white
         let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton

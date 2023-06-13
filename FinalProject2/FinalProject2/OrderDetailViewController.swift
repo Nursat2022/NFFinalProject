@@ -106,7 +106,6 @@ extension OrderDetailViewController: UITableViewDelegate, UITableViewDataSource 
 class cellForData: UITableViewCell {
     let namelabel: UILabel = {
         let label = UILabel()
-//        label.text = "Ordered"
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 13)
         return label
@@ -114,7 +113,6 @@ class cellForData: UITableViewCell {
     
     let dataLabel: UILabel = {
         let label = UILabel()
-//        label.text = "24.12.2023"
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
         return label
@@ -144,15 +142,11 @@ class cellForData: UITableViewCell {
 class cellForProduct: UITableViewCell {
     var image: UIImageView = {
         let view = UIImageView()
-        //MARK: CHANGE
-//        view.image = UIImage(named: "sneakers2")
         return view
     }()
     
     let name: UILabel = {
         let label = UILabel()
-        //MARK: CHANGE
-//        label.text = "New Balance"
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
         label.numberOfLines = 0
@@ -163,8 +157,6 @@ class cellForProduct: UITableViewCell {
         let label = UILabel()
         label.textColor = UIColor(red: 142/255, green: 142/255, blue: 147/255, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 12)
-        //MARK: CHANGE
-//        label.text = "Кроссовки 993 Brown из коллаборации с Aimé Leon Dore"
         label.numberOfLines = 0
         return label
     }()
@@ -173,8 +165,6 @@ class cellForProduct: UITableViewCell {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
-        //MARK: CHANGE
-//        label.text = "4 • $1234"
         return label
     }()
     

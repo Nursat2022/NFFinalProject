@@ -8,7 +8,7 @@
 import UIKit
 import FirebaseAuth
 
-class RegistrationViewController: UIViewController {
+class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     let stateLabel: UILabel = {
         let label = UILabel()
@@ -57,7 +57,16 @@ class RegistrationViewController: UIViewController {
         setup()
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+    
     func setup() {
+        [usernameField, passwordField, repeatField].forEach {
+            $0.delegate = self
+        }
+        
         view.backgroundColor = .white
         
         [usernameField, passwordField, repeatField, stackView, stateLabel].forEach {
