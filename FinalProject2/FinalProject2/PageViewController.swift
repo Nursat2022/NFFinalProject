@@ -5,6 +5,8 @@
 //  Created by Nursat Sakyshev on 05.06.2023.
 //
 
+// Bro where is your folder structureeeeeeeeeeee, try to use folder in the future haha
+
 import UIKit
 
 class PageViewController: UIPageViewController {
@@ -82,16 +84,18 @@ class PageViewController: UIPageViewController {
         let page2 = TestViewController(firstImageName: "page2Sneakers1", secondImageName: "page2Sneakers2", vectorImageName: "page2Vector")
         let page3 = TestViewController(firstImageName: "page3Sneakers1", secondImageName: "page3Sneakers2", vectorImageName: "page3Vector")
         
+        // here you cann append pages with one line by adding array of three elements [page1, page2, page3]
         pages.append(page1)
         pages.append(page2)
         pages.append(page3)
+        // also try avoiding naming your variables and entities with decimals in them, using FirstPage, SecondPage and so on will be better option
         
         setViewControllers([pages[initialPage]], direction: .forward, animated: true)
         
         roundedRectangle.image = UIImage(named: "RoundedRect1")
     }
     
-    func style() {
+    func style() { // try yo use call to action for naming your functions, example: setStyling
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.currentPageIndicatorTintColor = .white
         pageControl.pageIndicatorTintColor = .systemGray2
@@ -107,6 +111,7 @@ class PageViewController: UIPageViewController {
         stackView.addArrangedSubview(label)
         stackView.addArrangedSubview(subLabel)
         stackView.addArrangedSubview(button)
+        // you can use [roundedRectangle,pageControl,stackView].forEach { view.addSubview($0) }
         view.addSubview(roundedRectangle)
         view.addSubview(pageControl)
         view.addSubview(stackView)
@@ -131,6 +136,7 @@ class PageViewController: UIPageViewController {
 }
 
 extension PageViewController {
+    // is there any need to add actions in extension ?
     @objc func pageControlTapped(_ sender: UIPageControl) {
         setViewControllers([pages[sender.currentPage]], direction: .forward, animated: true, completion: nil)
         updateUI()

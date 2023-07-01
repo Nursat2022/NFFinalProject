@@ -7,6 +7,8 @@
 
 import Foundation
 
+
+// pls remove unnneded lines of code for future, it's bad habit to work with unneded/commented lines of code
 //var orders: [Sneakers: Int] {
 //    get {
 //        if sneakers.count != 0 {

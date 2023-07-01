@@ -7,6 +7,7 @@
 
 import UIKit
 
+// is there any need to make it global. what if i will launch your application on 23.59 and after 5 minutes for example it will be next day but you will be using old date in this case
 var today = Date()
 
 class CartViewController: UIViewController {

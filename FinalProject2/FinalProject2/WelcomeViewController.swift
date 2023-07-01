@@ -115,6 +115,7 @@ class WelcomeViewController: UIViewController {
 }
 
 extension WelcomeViewController {
+    // again no need in my opinion for extracting actions to extension of class
     @objc func signUp(_ sender: UIButton) {
         let registrationViewController = RegistrationViewController()
         self.navigationController?.pushViewController(registrationViewController, animated: true)

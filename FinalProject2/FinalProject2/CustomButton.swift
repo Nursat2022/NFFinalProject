@@ -7,6 +7,7 @@
 
 import UIKit
 
+// Good usage of reusing, well done
 class CustomButton: UIButton {
     
     override init(frame: CGRect) {
