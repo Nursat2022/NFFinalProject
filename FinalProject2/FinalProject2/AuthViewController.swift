@@ -55,6 +55,8 @@ class AuthViewController: UIViewController, UITextFieldDelegate {
         return stackView
     }()
 
+    
+    // for future, try to divide large functions into small ones, cause at some point it's hard to understand what's happening inside, in this example, you setting everything inside, for me best option to choose when to divide function into smaller chunks is when it extend 20 lines of code
     func setup() {
         [usernameField, passwordField].forEach {
             $0.delegate = self

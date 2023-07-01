@@ -132,6 +132,8 @@ extension RegistrationViewController {
             return
         }
         
+        // users with different mailings can't register to your app, also what if i will write example@gmail.com for textField, will you register user with example@gmail.com@gmail.com ?, pls add addditional validation for registering new user
+        // try to seperate BudinessLogic here, in this example it is registering new user 
         FirebaseAuth.Auth.auth().createUser(withEmail: email + "@gmail.com", password: password) {[weak self] result, error in
             guard let strongSelf = self else { return }
             guard error == nil else {
@@ -146,6 +148,7 @@ extension RegistrationViewController {
             transition.subtype = CATransitionSubtype.fromRight
             
             stopLoader(loader: loader)
+            // this is deprecated lines of code
             UIApplication.shared.keyWindow?.layer.add(transition, forKey: nil)
             UIApplication.shared.keyWindow?.rootViewController = TabBarController()
         }

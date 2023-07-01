@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 import FirebaseFirestore
 
+// why extension is written above the class bro haha
 extension CatalogViewController: productViewDelegate {
     func update() {
         delegate?.updateBadgeValue(value: orders.count == 0 ? nil : "\(orders.count)", color: .gray)
@@ -71,6 +72,14 @@ class CatalogViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    // whole file sttructuring is messed up here, you have firsly outlets then lifcycle then some variable
+    // best option for me is
+    // Variables
+    // Outlets
+    // LifeCycle
+    // Public methods
+    // Actions
+    // Private methods
     var stackViews = [UIStackView]()
     
     func setup() {
@@ -116,6 +125,7 @@ class CatalogViewController: UIViewController, UIScrollViewDelegate {
 
 extension CatalogViewController {
     func setupStackViews() {
+        // you've never used i here
         for i in 0..<sneakers.count/2 + 1 {
             stackViews.append(UIStackView())
         }
@@ -136,6 +146,7 @@ extension CatalogViewController {
     }
 }
 
+// Better to name it just Sneaker, cause you are describing only onr sneaker inside of it
 //MARK: SNEAKERS
 struct Sneakers: Hashable {
     var image: UIImage
@@ -144,6 +155,7 @@ struct Sneakers: Hashable {
     var price: Int
 }
 
+// name classes with capital letter
 //MARK: PRODUCT VIEW
 class productView: UIView {
     weak var delegate: productViewDelegate?
@@ -266,6 +278,7 @@ class productView: UIView {
     }
 }
 
+// name with capital letter, also why you have everythign in one file, better to divide it to different files
 extension productView {
     @objc func addButtonTapped(_ sender: UIButton) {
         if addButton.titleLabel?.text == "Add to cart" {
