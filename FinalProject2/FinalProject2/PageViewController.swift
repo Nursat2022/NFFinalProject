@@ -78,9 +78,9 @@ class PageViewController: UIPageViewController {
         pageControl.addTarget(self, action: #selector(pageControlTapped(_:)), for: .valueChanged)
         button.addTarget(self, action: #selector(nextButtonTapped(_:)), for: .touchUpInside)
         
-        let page1 = TestViewController(firstImageName: "page1Sneakers1", secondImageName: "page1Sneakers2", vectorImageName: "page1Vector")
-        let page2 = TestViewController(firstImageName: "page2Sneakers1", secondImageName: "page2Sneakers2", vectorImageName: "page2Vector")
-        let page3 = TestViewController(firstImageName: "page3Sneakers1", secondImageName: "page3Sneakers2", vectorImageName: "page3Vector")
+        let page1 = OnboardingViewController(firstImageName: "page1Sneakers1", secondImageName: "page1Sneakers2", vectorImageName: "page1Vector")
+        let page2 = OnboardingViewController(firstImageName: "page2Sneakers1", secondImageName: "page2Sneakers2", vectorImageName: "page2Vector")
+        let page3 = OnboardingViewController(firstImageName: "page3Sneakers1", secondImageName: "page3Sneakers2", vectorImageName: "page3Vector")
         
         pages.append(page1)
         pages.append(page2)

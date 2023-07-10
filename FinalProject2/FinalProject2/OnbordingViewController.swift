@@ -10,7 +10,7 @@ import UIKit
 let h = UIScreen.main.bounds.height
 let w = UIScreen.main.bounds.width
 
-class TestViewController: UIViewController {
+class OnboardingViewController: UIViewController {
     
     let roundedRectangle: UIImageView = {
         let view = UIImageView()
